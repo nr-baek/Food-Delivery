@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const MenuWrapper = styled.div`
-  /* position: sticky; */
-  /* bottom: 0; */
+  position: sticky;
+  bottom: 0;
   border-top: 1px solid #000;
-  /* background-color: #fff; */
+  background-color: #fff;
   ul {
     display: flex;
     li {
@@ -28,5 +28,19 @@ export const MenuWrapper = styled.div`
         }
       }
     }
+  }
+`;
+
+export const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
+  padding: 15px 0;
+  border-bottom: 2px solid rgb(192, 192, 192);
+  background-color: #fff;
+
+  h1 {
+    text-align: center;
+    font-size: 25px;
+    font-family: "yeonsung";
   }
 `;
