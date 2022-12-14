@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function StoreItem() {
   return (
@@ -14,7 +15,7 @@ function StoreItem() {
     //   </a>
     // </li>
     <li>
-      <a href="#">
+      <Link to="/store/detail/1">
         <img src={require("../../assets/images/stores/BBQ.jpg")} alt="BBQ" />
         {/* <img src={require(`../../assets/images/stores/${imageName}.png`).default} alt={${imageName}} /> */}
         <div className="store-description">
@@ -27,7 +28,7 @@ function StoreItem() {
           </p>
           <p>배달팁 3,000원</p>
         </div>
-      </a>
+      </Link>
     </li>
   );
 }
