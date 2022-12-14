@@ -33,6 +33,7 @@ export const MenuWrapper = styled.div`
 
 export const StyledHeader = styled.header`
   position: sticky;
+  z-index: 1;
   top: 0;
   padding: 15px 0;
   border-bottom: 2px solid rgb(192, 192, 192);
