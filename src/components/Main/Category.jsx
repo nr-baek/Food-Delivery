@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import chicken from "../../assets/images/categories/chicken.png";
 import chineseFood from "../../assets/images/categories/chineseFood.png";
 import dessert from "../../assets/images/categories/dessert.png";
@@ -14,58 +15,58 @@ export default function Category() {
   return (
     <CategoryList>
       <li>
-        <a href="/category?cate=hansic">
+        <Link to="/store/koreanFood">
           <img src={koreanFood} alt="" />
           한식
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=jungsic">
+        <Link to="/store/chineseFood">
           <img src={chineseFood} alt="" />
           중식
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=ilsic">
+        <Link to="/store/japaneseFood">
           <img src={japaneseFood} alt="" />
           일식
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=fastfood">
+        <Link to="/store/fastFood">
           <img src={fastFood} alt="" />
           패스트푸드
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=desirt">
+        <Link to="/store/dessert">
           <img src={dessert} alt="" />
           디저트
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=chicken">
+        <Link to="/store/chicken">
           <img src={chicken} alt="" />
           치킨
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=pizza">
+        <Link to="/store/pizza">
           <img src={pizza} alt="" />
           피자
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=bunsic">
+        <Link to="/store/schoolFood">
           <img src={schoolFood} alt="" />
           분식
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/category?cate=anhu">
+        <Link to="/store/dish">
           <img src={dish} alt="" />
           안주
-        </a>
+        </Link>
       </li>
     </CategoryList>
   );
