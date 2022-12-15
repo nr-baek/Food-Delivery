@@ -1,13 +1,13 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import BottomMenu from "./BottomMenu";
-import { Container } from "./styles";
 
-function Template({ children }) {
+function Template() {
   return (
-    <Container>
-      {children}
+    <>
+      <Outlet />
       <BottomMenu />
-    </Container>
+    </>
   );
 }
 
