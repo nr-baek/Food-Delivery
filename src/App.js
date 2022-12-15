@@ -16,6 +16,7 @@ function App() {
           <Route path="/todayfood" element={<TodayFood />} />
           <Route path="/likes" element={<StoreListComp />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/store/:category" element={<StoreListComp />} />
         </Route>
         <Route path="/store/detail/:id" element={<StoreDetail />} />
       </Routes>
