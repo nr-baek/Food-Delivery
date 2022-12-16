@@ -3,6 +3,7 @@ import Header from "../common/Header";
 import StoreInfo from "./StoreInfo";
 import StoreDetailMain from "./StoreDetailMain";
 import StorePrice from "./StorePrice";
+import PrevButton from "../common/PrevButton";
 
 function Index() {
   return (
@@ -11,6 +12,7 @@ function Index() {
       <StoreInfo />
       <StorePrice />
       <StoreDetailMain />
+      <PrevButton />
     </>
   );
 }

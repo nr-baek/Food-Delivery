@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
+import ReviewList from "./ReviewList";
 import { StyledTabBox } from "./styles";
 
 function StoreDetailMain() {
@@ -9,19 +10,19 @@ function StoreDetailMain() {
     <>
       <StyledTabBox>
         <button
-          class={selectedTab === "menu" && "selected"}
+          className={selectedTab === "menu" ? "selected" : null}
           onClick={() => setSelectedTab("menu")}
         >
           메뉴
         </button>
         <button
-          class={selectedTab === "review" && "selected"}
+          className={selectedTab === "review" ? "selected" : null}
           onClick={() => setSelectedTab("review")}
         >
           리뷰
         </button>
       </StyledTabBox>
-      {selectedTab === "menu" ? <Menu /> : ""}
+      {selectedTab === "menu" ? <Menu /> : <ReviewList />}
     </>
   );
 }

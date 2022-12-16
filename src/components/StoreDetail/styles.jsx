@@ -8,10 +8,6 @@ export const StoreInfoBox = styled.div`
   text-align: center;
   font-family: "yeonsung";
 
-  .fa-star {
-    color: rgb(246, 246, 0);
-  }
-
   .store-name {
     display: inline-block;
     margin-bottom: 20px;
@@ -148,7 +144,7 @@ export const OrderButton = styled.button`
   width: 75px;
   height: 75px;
   padding: 14px 0;
-  background-color: #2ac1bc;
+  background-color: #d15c03;
   border-radius: 50%;
   font-size: 20px;
   font-weight: 900;
@@ -156,5 +152,66 @@ export const OrderButton = styled.button`
 
   span {
     display: block;
+  }
+
+  &:hover {
+    background-color: #e99400;
+  }
+`;
+
+export const ReviewInfoBox = styled.div`
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  padding: 20px 15px;
+  border-bottom: 1px solid #000;
+  font-family: "yeonsung";
+  span {
+    flex-grow: 1;
+    padding-top: 5px;
+    font-size: 20px;
+    span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  a {
+    font-family: "hannaPro";
+    border: 0;
+    background-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    color: #d15c03;
+
+    &:hover {
+      color: #e99400;
+    }
+  }
+`;
+
+export const ReviewItemBox = styled.div`
+  padding: 15px;
+  width: 400px;
+  margin: 0 auto;
+  border-bottom: 1px solid #000;
+  font-family: "yeonsung";
+
+  &:last-child {
+    border-bottom: 0;
+  }
+  .review-nick {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  .review-date {
+    margin-bottom: 10px;
+    span {
+      margin-right: 20px;
+    }
+  }
+  .review-txt {
+    font-size: 19px;
+    line-height: 1.4;
   }
 `;
