@@ -59,3 +59,18 @@ export const Container = styled.div`
   flex-flow: column nowrap;
   user-select: none;
 `;
+
+export const PrevButtonBox = styled.div`
+  position: fixed;
+  top: 35px;
+  left: 148px;
+  font-size: 30px;
+  z-index: 1;
+  a {
+    color: #d15c03;
+
+    &:hover {
+      color: #e99400;
+    }
+  }
+`;
