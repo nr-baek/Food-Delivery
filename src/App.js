@@ -7,6 +7,7 @@ import MyPage from "./components/MyPage";
 import StoreDetail from "./components/StoreDetail";
 import Order from "./components/Order";
 import Bill from "./components/Bill";
+import Review from "./components/Review";
 import { Container } from "./components/common/styles";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/store/detail/:id" element={<StoreDetail />} />
         <Route path="/order" element={<Order />} />
         <Route path="/bill" element={<Bill />} />
+        <Route path="/review" element={<Review />} />
       </Routes>
     </Container>
   );
