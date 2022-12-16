@@ -5,6 +5,7 @@ import TodayFood from "./components/TodayFood";
 import StoreListComp from "./components/StoreListComp";
 import MyPage from "./components/MyPage";
 import StoreDetail from "./components/StoreDetail";
+import Order from "./components/Order";
 import { Container } from "./components/common/styles";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/store/:category" element={<StoreListComp />} />
         </Route>
         <Route path="/store/detail/:id" element={<StoreDetail />} />
+        <Route path="/order" element={<Order />} />
       </Routes>
     </Container>
   );
