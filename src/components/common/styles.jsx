@@ -36,13 +36,33 @@ export const StyledHeader = styled.header`
   z-index: 1;
   top: 0;
   padding: 15px 0;
-  border-bottom: 2px solid rgb(192, 192, 192);
+  border-bottom-width: ${props => (props.delBtn ? "1px" : "2px")};
+  border-bottom-style: solid;
+  border-bottom-color: rgb(192, 192, 192);
+  /* border-bottom: 2px solid rgb(192, 192, 192); */
   background-color: #fff;
 
   h1 {
     text-align: center;
     font-size: 25px;
-    font-family: "yeonsung";
+    /* font-family: "yeonsung"; */
+    font-family: "dohyeon";
+    color: #555;
+  }
+
+  .prevBtn {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+    color: #151515;
+
+    &:hover {
+      color: #d15c03;
+    }
   }
 `;
 
@@ -58,19 +78,4 @@ export const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
   user-select: none;
-`;
-
-export const PrevButtonBox = styled.div`
-  position: fixed;
-  top: 35px;
-  left: 148px;
-  font-size: 30px;
-  z-index: 1;
-  a {
-    color: #d15c03;
-
-    &:hover {
-      color: #e99400;
-    }
-  }
 `;

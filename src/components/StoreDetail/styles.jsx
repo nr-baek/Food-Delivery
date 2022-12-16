@@ -92,9 +92,9 @@ export const StyledTabBox = styled.div`
     }
 
     &.selected {
-      border-top: 3px solid #000;
+      border-top: 3px solid #d15c03;
       border-bottom: 0;
-      color: #000;
+      color: #964100;
     }
   }
 `;
