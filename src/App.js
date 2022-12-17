@@ -9,6 +9,8 @@ import Order from "./components/Order";
 import Bill from "./components/Bill";
 import Review from "./components/Review";
 import { Container } from "./components/common/styles";
+import Login from "./components/AuthTemplate/Login";
+import SignUp from "./components/AuthTemplate/SignUp";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/bill" element={<Bill />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Container>
   );
