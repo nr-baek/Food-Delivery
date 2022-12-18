@@ -10,16 +10,11 @@ export default function Login() {
         <fieldset>
           <legend>회원 로그인 폼</legend>
           <div className="input-box">
-            <input
-              type="text"
-              id="userId"
-              autocomplete="off"
-              placeholder="아이디"
-            />
+            <input type="text" autoComplete="off" placeholder="아이디" />
             <em className="fail-msg"></em>
           </div>
           <div className="input-box">
-            <input type="password" id="userPw" placeholder="비밀번호" />
+            <input type="password" placeholder="비밀번호" />
             <em className="fail-msg"></em>
           </div>
           <AuthButton type="submit">로그인</AuthButton>
