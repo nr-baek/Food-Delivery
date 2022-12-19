@@ -11,7 +11,7 @@ export const AuthTemplateBox = styled.div`
   }
   form {
     width: 320px;
-    margin: 50px auto;
+    margin: 45px auto;
     .input-box {
       position: relative;
       margin-bottom: 28px;
@@ -30,17 +30,6 @@ export const AuthTemplateBox = styled.div`
         &:focus-visible {
           border-bottom: 2px solid #d15c03;
         }
-      }
-
-      .fail-msg {
-        position: absolute;
-        bottom: -25px;
-        left: 0;
-        text-align: right;
-        display: inline-block;
-        font-size: 18px;
-        width: 320px;
-        color: #c30000;
       }
     }
   }
@@ -80,4 +69,16 @@ export const AuthButton = styled.button`
   &:hover {
     background-color: #e99400;
   }
+
+  &[disabled] {
+    background-color: #c0c0c0;
+  }
+`;
+
+export const Error = styled.p`
+  text-align: right;
+  display: inline-block;
+  font-size: 18px;
+  width: 320px;
+  color: #c30000;
 `;

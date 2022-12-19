@@ -2,7 +2,11 @@ import React from "react";
 import { AuthTemplateBox } from "./styles";
 import logo from "../../assets/images/logo.png";
 
-function AuthTemplate({ children }) {
+interface Props {
+  children: React.ReactNode;
+}
+
+function AuthTemplate({ children }: Props) {
   return (
     <AuthTemplateBox>
       <img src={logo} alt="logo" />
