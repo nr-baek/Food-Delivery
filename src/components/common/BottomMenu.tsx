@@ -2,7 +2,6 @@ import React from "react";
 import { MenuWrapper } from "./styles";
 import home from "../../assets/images/menuIcons/homeIcon.png";
 import myPage from "../../assets/images/menuIcons/myPageIcon.svg";
-import video from "../../assets/images/menuIcons/videoIcon.svg";
 import like from "../../assets/images/menuIcons/zzimIcon.png";
 import { Link } from "react-router-dom";
 
@@ -13,11 +12,6 @@ export default function BottomMenu() {
         <li>
           <Link to="/">
             <img src={home} alt="" />홈
-          </Link>
-        </li>
-        <li>
-          <Link to="/todayfood">
-            <img src={video} alt="" />뭐 먹지?
           </Link>
         </li>
         <li>

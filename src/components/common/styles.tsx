@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface HeaderProps {
+  delBtn: boolean;
+}
+
 export const MenuWrapper = styled.div`
   position: sticky;
   bottom: 0;
@@ -36,7 +40,8 @@ export const StyledHeader = styled.header`
   z-index: 1;
   top: 0;
   padding: 15px 0;
-  border-bottom-width: ${props => (props.delBtn ? "1px" : "2px")};
+  border-bottom-width: ${(props: HeaderProps) =>
+    props.delBtn ? "1px" : "2px"};
   border-bottom-style: solid;
   border-bottom-color: rgb(192, 192, 192);
   /* border-bottom: 2px solid rgb(192, 192, 192); */
@@ -44,10 +49,10 @@ export const StyledHeader = styled.header`
 
   h1 {
     text-align: center;
-    font-size: 25px;
-    /* font-family: "yeonsung"; */
-    font-family: "dohyeon";
-    color: #555;
+    font-size: 30px;
+    font-family: "hanna";
+    /* color: #555; */
+    color: #d15c03;
   }
 
   .prevBtn {

@@ -3,7 +3,13 @@ import { DelButton } from "../Order/styles";
 import PrevButton from "./PrevButton";
 import { StyledHeader } from "./styles";
 
-function Header({ children, prevBtn, delBtn }) {
+interface Props {
+  children: React.ReactNode;
+  prevBtn: boolean;
+  delBtn: boolean;
+}
+
+function Header({ children, prevBtn, delBtn }: Props) {
   return (
     <StyledHeader delBtn={delBtn}>
       <h1>{children}</h1>
