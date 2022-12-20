@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthTemplate from "./AuthTemplate";
 import PrevButton from "../common/PrevButton";
 import { AuthButton, Error, Success } from "./styles";
 import { useCallback } from "react";
 import { ChangeEvent } from "react";
 import request from "utils/request";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "store";
 
 const idReg = /^[a-zA-Z0-9]{4,11}$/;
 const pwReg = /^[a-zA-Z0-9]{5,15}$/;
 const nicReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
 function SignUp() {
+  const navigate = useNavigate();
+  const login = useLogin();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
+
   const [idCheckError, setIdCheckError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [mismatchError, setMismatchError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
   const [signUpError, setSignUpError] = useState("");
   const [signUpSuccess, setSignUpSuccess] = useState(false);
+
   const [signupLoading, setSignupLoading] = useState(false);
 
   const setInit = useCallback(() => {
@@ -118,6 +125,13 @@ function SignUp() {
     },
     [id, password, nickname, setInit],
   );
+
+  useEffect(() => {
+    if (login) {
+      // window.alert("이미 로그인 상태입니다.");
+      navigate("/");
+    }
+  }, [login]);
 
   return (
     <AuthTemplate>

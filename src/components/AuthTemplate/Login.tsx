@@ -1,7 +1,9 @@
 import React, { ChangeEvent } from "react";
+import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useLogin, useUserActions } from "store";
 import request from "utils/request";
 import AuthTemplate from "./AuthTemplate";
 import { AuthButton, Error } from "./styles";
@@ -10,14 +12,16 @@ const idReg = /^[a-zA-Z0-9]{4,11}$/;
 const pwReg = /^[a-zA-Z0-9]{5,15}$/;
 
 export default function Login() {
+  const navigate = useNavigate();
+  const login = useLogin();
+  const userAction = useUserActions();
+
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [idCheckError, setIdCheckError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [loginError, setLoginError] = useState("");
-
-  const navigate = useNavigate();
 
   const onChangeId = useCallback((e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -58,7 +62,10 @@ export default function Login() {
       try {
         const response = await request.post("/login", user);
         if (response.ok) {
-          // ++ 로그인 상태 설정
+          const { userId, userNickname } = await response.json();
+          userAction.setLogin(true);
+          userAction.setId(userId);
+          userAction.setNickname(userNickname);
           navigate("/");
         } else if (response.status === 401) {
           setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -71,8 +78,15 @@ export default function Login() {
         setLoading(false);
       }
     },
-    [id, password, navigate],
+    [id, password, navigate, userAction],
   );
+
+  useEffect(() => {
+    if (!login) {
+      // window.alert("이미 로그인 상태입니다.");
+      navigate("/");
+    }
+  }, [login]);
 
   return (
     <AuthTemplate>
