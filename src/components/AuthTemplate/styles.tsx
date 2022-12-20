@@ -8,6 +8,7 @@ export const AuthTemplateBox = styled.div`
     display: block;
     margin: 0 auto;
     width: 150px;
+    height: 160px;
   }
   form {
     width: 320px;
@@ -31,6 +32,14 @@ export const AuthTemplateBox = styled.div`
           border-bottom: 2px solid #d15c03;
         }
       }
+    }
+
+    p {
+      text-align: right;
+      display: inline-block;
+      font-size: 15px;
+      width: 320px;
+      word-break: break-all;
     }
   }
   .join {
@@ -76,9 +85,9 @@ export const AuthButton = styled.button`
 `;
 
 export const Error = styled.p`
-  text-align: right;
-  display: inline-block;
-  font-size: 18px;
-  width: 320px;
   color: #c30000;
+`;
+
+export const Success = styled.p`
+  color: #00710b;
 `;
