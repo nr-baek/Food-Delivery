@@ -1,12 +1,10 @@
-import { INewUser } from "types/requestPayload";
-
 const BASE_URL = "http://localhost:9090";
 
 const request = {
   get(url: string) {
     return fetch(`${BASE_URL}${url}`);
   },
-  post(url: string, payload: INewUser) {
+  post(url: string, payload: any) {
     return fetch(`${BASE_URL}${url}`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
