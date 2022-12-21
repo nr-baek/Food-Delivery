@@ -10,8 +10,17 @@ import Review from "./components/Review";
 import { Container } from "./components/common/styles";
 import Login from "./components/AuthTemplate/Login";
 import SignUp from "./components/AuthTemplate/SignUp";
+import { useUserActions } from "store";
 
 function App() {
+  const { setId, setNickname } = useUserActions();
+
+  const loginInfo = localStorage.getItem("deliveryApp");
+  if (loginInfo) {
+    const { userId, userNickname } = JSON.parse(loginInfo);
+    setId(userId);
+    setNickname(userNickname);
+  }
   return (
     <Container>
       <Routes>

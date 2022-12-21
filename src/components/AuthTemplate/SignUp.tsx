@@ -6,7 +6,6 @@ import { useCallback } from "react";
 import { ChangeEvent } from "react";
 import request from "utils/request";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "store";
 
 const idReg = /^[a-zA-Z0-9]{4,11}$/;
 const pwReg = /^[a-zA-Z0-9]{5,15}$/;
@@ -14,7 +13,6 @@ const nicReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
 function SignUp() {
   const navigate = useNavigate();
-  const login = useLogin();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -127,11 +125,12 @@ function SignUp() {
   );
 
   useEffect(() => {
-    if (login) {
-      // window.alert("이미 로그인 상태입니다.");
+    const isLogin = localStorage.getItem("deliveryApp");
+    if (isLogin) {
+      alert("현재 로그인된 상태입니다.");
       navigate("/");
     }
-  }, [login]);
+  }, [navigate]);
 
   return (
     <AuthTemplate>

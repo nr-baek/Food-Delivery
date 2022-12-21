@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogin, useUserActions } from "store";
+import { useUserActions } from "store";
 import request from "utils/request";
 import AuthTemplate from "./AuthTemplate";
 import { AuthButton, Error } from "./styles";
@@ -13,7 +13,6 @@ const pwReg = /^[a-zA-Z0-9]{5,15}$/;
 
 export default function Login() {
   const navigate = useNavigate();
-  const login = useLogin();
   const userAction = useUserActions();
 
   const [loading, setLoading] = useState(false);
@@ -63,9 +62,12 @@ export default function Login() {
         const response = await request.post("/login", user);
         if (response.ok) {
           const { userId, userNickname } = await response.json();
-          userAction.setLogin(true);
           userAction.setId(userId);
           userAction.setNickname(userNickname);
+          localStorage.setItem(
+            "deliveryApp",
+            JSON.stringify({ userId, userNickname }),
+          );
           navigate("/");
         } else if (response.status === 401) {
           setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -82,11 +84,12 @@ export default function Login() {
   );
 
   useEffect(() => {
-    if (!login) {
-      // window.alert("이미 로그인 상태입니다.");
+    const isLogin = localStorage.getItem("deliveryApp");
+    if (isLogin) {
+      alert("이미 로그인 상태입니다.");
       navigate("/");
     }
-  }, [login]);
+  }, [navigate]);
 
   return (
     <AuthTemplate>
