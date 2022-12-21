@@ -4,9 +4,9 @@ import PrevButton from "./PrevButton";
 import { StyledHeader } from "./styles";
 
 interface Props {
-  children: React.ReactNode;
-  prevBtn: boolean;
-  delBtn: boolean;
+  children: string;
+  prevBtn?: boolean;
+  delBtn?: boolean;
 }
 
 function Header({ children, prevBtn, delBtn }: Props) {

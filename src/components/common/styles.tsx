@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 interface HeaderProps {
-  delBtn: boolean;
+  delBtn?: boolean;
 }
 
 export const MenuWrapper = styled.div`
   position: sticky;
   bottom: 0;
   border-top: 1px solid #000;
-  background-color: #fff;
   ul {
     display: flex;
     li {
@@ -72,6 +71,7 @@ export const StyledHeader = styled.header`
 `;
 
 export const Container = styled.div`
+  background-color: #fff;
   position: relative;
   margin: 20px auto;
   width: 510px;
