@@ -32,5 +32,14 @@ export const StyledContainer = styled.ul`
         color: rgb(246, 246, 0);
       }
     }
+    :hover {
+      box-shadow: 1px 1px 7px 1px rgb(209, 209, 209) inset;
+    }
   }
+`;
+
+export const Message = styled.p`
+  font-size: 25px;
+  text-align: center;
+  padding: 100px 0;
 `;
