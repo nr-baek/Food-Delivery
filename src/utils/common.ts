@@ -1,4 +1,8 @@
-export const categoryName = {
+interface ICategoryName {
+  [key: string]: string;
+}
+
+export const categoryName: ICategoryName = {
   chicken: "치킨",
   chineseFood: "중식",
   dessert: "디저트",

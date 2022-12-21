@@ -7,10 +7,10 @@ interface SectionProps {
 export const StyledSection = styled.section`
   position: relative;
   width: 100%;
+  overflow: hidden;
   .carousel-wrap {
     width: 508px;
     height: 220px;
-    overflow: hidden;
     .ad-item-container {
       display: flex;
       position: absolute;
