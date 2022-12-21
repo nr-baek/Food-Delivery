@@ -1,18 +1,33 @@
 import React from "react";
 import { Message, StyledContainer } from "./styles";
-import useStoreListOfCategoryQuery from "hooks/useStoreListOfCategoryQuery";
+import { useStoreListOfCategoryQuery } from "hooks/storeListQuery";
 import StoreItem from "./StoreItem";
 
 interface Props {
   category: string | undefined;
 }
 
-function StoreList({ category }: Props) {
-  const { isLoading, data: storeLists } = useStoreListOfCategoryQuery(category);
+function CategoryStoreList({ category }: Props) {
+  const {
+    isLoading,
+    data: storeLists,
+    isError,
+    error,
+  } = useStoreListOfCategoryQuery(category);
 
-  if (isLoading) {
-    return <div>"Loading..."</div>;
+  if (isLoading || isError) {
+    return (
+      <StyledContainer>
+        <Message>
+          {isLoading && "Loading..."}
+          {isError && "Error가 발생했습니다."}
+          <br />
+          {error && error.message}
+        </Message>
+      </StyledContainer>
+    );
   }
+
   return (
     <StyledContainer>
       {storeLists?.length ? (
@@ -24,4 +39,4 @@ function StoreList({ category }: Props) {
   );
 }
 
-export default StoreList;
+export default CategoryStoreList;
