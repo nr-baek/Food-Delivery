@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-// import { Header } from "./styles";
 import Header from "../common/Header";
 import Banner from "./Banner";
 import Category from "./Category";
-import Search from "./Search";
 import { useLogin } from "store";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +20,6 @@ export default function Main() {
       <Header>오늘 뭐먹지</Header>
       <Banner />
       <Category />
-      <Search />
     </>
   );
 }

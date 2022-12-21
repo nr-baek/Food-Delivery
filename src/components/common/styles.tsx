@@ -23,10 +23,10 @@ export const MenuWrapper = styled.div`
         display: flex;
         flex-flow: column nowrap;
         align-items: center;
-        padding: 5px 0;
+        padding: 11px 0;
         img {
           display: inline-block;
-          width: 35px;
+          width: 25px;
           padding-bottom: 5px;
         }
       }

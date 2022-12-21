@@ -4,24 +4,7 @@ interface SectionProps {
   idx: number;
 }
 
-export const Header = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-  font-size: 20px;
-  background-color: #fff;
-  cursor: pointer;
-  p {
-    margin-right: 10px;
-  }
-  img {
-    width: 25px;
-  }
-`;
-
 export const StyledSection = styled.section`
-  padding-bottom: 10px;
   position: relative;
   width: 100%;
   .carousel-wrap {
@@ -76,13 +59,14 @@ export const StyledSection = styled.section`
 export const CategoryList = styled.ul`
   display: flex;
   flex-flow: row wrap;
+  height: 347px;
 
   li {
     width: 33%;
     flex-grow: 1;
     text-align: center;
     border: 1px solid #ededed;
-    /* border-radius: 10px; */
+    background: linear-gradient(0deg, #fff5e9, white, white);
     &:first-child {
       border-top: none;
       border-radius: 0 0 10px 0;
@@ -117,49 +101,22 @@ export const CategoryList = styled.ul`
       border-radius: 10px 0 0 0;
     }
     a {
+      height: 100%;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
+      justify-content: center;
       padding: 10px 0;
     }
     img {
       width: 50px;
       transition: all ease-out 0.3s;
-      &:hover {
+    }
+
+    &:hover {
+      img {
         transform: rotate(20deg);
       }
-    }
-  }
-`;
-
-export const StyledForm = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 20px;
-  flex-grow: 1;
-  /* background-image: url(../img/paper.jpg); */
-  label {
-    display: inline-block;
-    width: 420px;
-    padding: 0 15px;
-    border: 1px solid #000;
-    border-radius: 20px;
-    box-sizing: border-box;
-    outline: none;
-    &:focus-visible {
-      box-sizing: border-box;
-      outline: none;
-      border: 2px solid #2ac1bc;
-      border-radius: 20px;
-      padding: 10px 14px;
-    }
-
-    input {
-      display: inline-block;
-      width: 100%;
-      border: 0;
-      padding: 10px 0;
-      text-indent: 10px;
     }
   }
 `;
