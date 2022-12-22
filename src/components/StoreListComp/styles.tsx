@@ -37,9 +37,3 @@ export const StyledContainer = styled.ul`
     }
   }
 `;
-
-export const Message = styled.p`
-  font-size: 25px;
-  text-align: center;
-  padding: 100px 0;
-`;

@@ -9,8 +9,8 @@ export const storeListOfCategoryApi = async (category?: string) => {
   return res.json();
 };
 
-export const storeListOfLikesApi = async (id?: string) => {
-  const res = await request.get(`/dib/${id}`);
+export const storeListOfLikesApi = async (userId?: string) => {
+  const res = await request.get(`/userLikesStore/${userId}`);
   return res.json();
 };
 

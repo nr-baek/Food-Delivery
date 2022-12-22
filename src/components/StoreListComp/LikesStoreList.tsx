@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Message, StyledContainer } from "./styles";
+import { StyledContainer } from "./styles";
 import StoreItem from "./StoreItem";
 import { useNavigate } from "react-router-dom";
 import { useStoreListOfLikesQuery } from "hooks/storeListQuery";
 import { useUserId } from "store";
+import { Message } from "components/common/styles";
 
 function LikesStoreList() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function LikesStoreList() {
   if (isLoading || isError) {
     return (
       <StyledContainer>
-        <Message>
+        <Message error={isError}>
           {isLoading && "Loading..."}
           {isError && "Error가 발생했습니다."}
           <br />

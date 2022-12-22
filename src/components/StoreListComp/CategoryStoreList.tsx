@@ -1,7 +1,8 @@
 import React from "react";
-import { Message, StyledContainer } from "./styles";
+import { StyledContainer } from "./styles";
 import { useStoreListOfCategoryQuery } from "hooks/storeListQuery";
 import StoreItem from "./StoreItem";
+import { Message } from "components/common/styles";
 
 interface Props {
   category: string | undefined;
@@ -18,7 +19,7 @@ function CategoryStoreList({ category }: Props) {
   if (isLoading || isError) {
     return (
       <StyledContainer>
-        <Message>
+        <Message error={isError}>
           {isLoading && "Loading..."}
           {isError && "Error가 발생했습니다."}
           <br />
