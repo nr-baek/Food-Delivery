@@ -2,7 +2,6 @@ import useLoginCheck from "hooks/useLoginCheck";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUserId } from "store";
 import { IMenuItem, StoreDetailInfo } from "types/responseTypes";
 import MenuItem from "./MenuItem";
 import { MenuBox, OrderButton } from "./styles";
@@ -10,9 +9,8 @@ import { MenuBox, OrderButton } from "./styles";
 function Menu() {
   const navigate = useNavigate();
   const { storeId } = useParams();
-  const userId = useUserId();
 
-  const { data: storeInfo } = useStoreDetailQuery(userId || "0", storeId);
+  const { data: storeInfo } = useStoreDetailQuery(storeId);
   const { menu } = storeInfo as StoreDetailInfo;
 
   const onClickButton = useLoginCheck(() => {

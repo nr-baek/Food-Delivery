@@ -11,6 +11,7 @@ export interface StoreInfo {
 }
 
 export interface IReview {
+  reviewId: number;
   star: number;
   content: string;
   date: string;
@@ -27,5 +28,4 @@ export interface StoreDetailInfo extends StoreInfo {
   tel: string;
   reviews: Array<IReview>;
   menu: Array<IMenuItem>;
-  isLikes: boolean;
 }

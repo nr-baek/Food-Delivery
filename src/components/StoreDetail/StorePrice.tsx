@@ -1,17 +1,12 @@
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import { useParams } from "react-router-dom";
-import { useUserId } from "store";
 import { StoreDetailInfo } from "types/responseTypes";
 import { StorePriceBox } from "./styles";
 
 function StorePrice() {
   const { storeId } = useParams();
-  const userId = useUserId();
 
-  const { data: storeInfo } = useStoreDetailQuery(
-    userId === "" ? "0" : userId,
-    storeId,
-  );
+  const { data: storeInfo } = useStoreDetailQuery(storeId);
   const { minPrice, deliveryTime, deliveryTip } = storeInfo as StoreDetailInfo;
   return (
     <StorePriceBox>

@@ -3,17 +3,16 @@ import { UseQueryResult } from "react-query/types/react/types";
 import request from "utils/request";
 import { StoreDetailInfo } from "types/responseTypes";
 
-export const storeDetailApi = async (userId?: string, storeId?: string) => {
-  const res = await request.get(`/storeInfo/${userId}/${storeId}`);
+export const storeDetailApi = async (storeId?: string) => {
+  const res = await request.get(`/storeInfo/${storeId}`);
   return res.json();
 };
 
 const useStoreDetailQuery = (
-  userId?: string,
   storeId?: string,
 ): UseQueryResult<StoreDetailInfo, Error> =>
-  useQuery(["storeList", userId, storeId], () =>
-    storeDetailApi(userId, storeId),
-  );
+  useQuery(["storeList", storeId], () => storeDetailApi(storeId), {
+    staleTime: 5000,
+  });
 
 export default useStoreDetailQuery;

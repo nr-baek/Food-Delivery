@@ -1,22 +1,18 @@
 import useLoginCheck from "hooks/useLoginCheck";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
-import React from "react";
+import useStoreLikeQuery from "hooks/useStoreLikeQuery";
 import { useParams } from "react-router-dom";
 import { useUserId } from "store";
 import { StoreDetailInfo } from "types/responseTypes";
 import { StoreInfoBox } from "./styles";
 
 function StoreInfo() {
-  const { storeId } = useParams();
   const userId = useUserId();
+  const { storeId } = useParams();
+  const { data: storeInfo } = useStoreDetailQuery(storeId);
+  const { isLoading, isError, data } = useStoreLikeQuery(userId, storeId);
 
-  const { data: storeInfo } = useStoreDetailQuery(
-    userId === "" ? "0" : userId,
-    storeId,
-  );
-
-  const { storeName, storeStar, reviewCount, isLikes } =
-    storeInfo as StoreDetailInfo;
+  const { storeName, storeStar, reviewCount } = storeInfo as StoreDetailInfo;
 
   const onClickLikes = useLoginCheck(() => {
     // user정보의 favorites에 가게ID 추가하는 mutation 처리
@@ -35,10 +31,10 @@ function StoreInfo() {
           <i className="fas fa-phone-alt"></i>전화
         </button>
         <button onClick={onClickLikes}>
-          {isLikes ? (
-            <i className="fas fa-heart dib" />
-          ) : (
+          {isLoading || isError || !data?.isLikes ? (
             <i className="far fa-heart dib" />
+          ) : (
+            <i className="fas fa-heart dib" />
           )}
           찜
         </button>
