@@ -10,13 +10,13 @@ function StoreDetailMain() {
     <>
       <StyledTabBox>
         <button
-          className={selectedTab === "menu" ? "selected" : null}
+          className={selectedTab === "menu" ? "selected" : ""}
           onClick={() => setSelectedTab("menu")}
         >
           메뉴
         </button>
         <button
-          className={selectedTab === "review" ? "selected" : null}
+          className={selectedTab === "review" ? "selected" : ""}
           onClick={() => setSelectedTab("review")}
         >
           리뷰

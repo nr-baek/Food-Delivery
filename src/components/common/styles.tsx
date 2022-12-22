@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface HeaderProps {
-  delBtn?: boolean;
-}
-
 export const MenuWrapper = styled.div`
   position: sticky;
   bottom: 0;
@@ -33,6 +29,10 @@ export const MenuWrapper = styled.div`
     }
   }
 `;
+
+interface HeaderProps {
+  delBtn?: boolean;
+}
 
 export const StyledHeader = styled.header`
   position: sticky;
@@ -83,4 +83,15 @@ export const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
   user-select: none;
+`;
+
+interface IMessage {
+  error?: boolean;
+}
+
+export const Message = styled.p`
+  font-size: 25px;
+  text-align: center;
+  padding: 100px 0;
+  color: ${(props: IMessage) => (props.error ? "red" : "#333")};
 `;

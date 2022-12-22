@@ -176,7 +176,7 @@ export const ReviewInfoBox = styled.div`
     }
   }
 
-  a {
+  button {
     font-family: "hannaPro";
     border: 0;
     background-color: transparent;
