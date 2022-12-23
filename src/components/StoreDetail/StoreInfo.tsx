@@ -1,4 +1,5 @@
 import useLoginCheck from "hooks/useLoginCheck";
+import useSetLikeMutation from "hooks/useSetLikeMutation";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import useStoreLikeQuery from "hooks/useStoreLikeQuery";
 import { useParams } from "react-router-dom";
@@ -10,13 +11,19 @@ function StoreInfo() {
   const userId = useUserId();
   const { storeId } = useParams();
   const { data: storeInfo } = useStoreDetailQuery(storeId);
-  const { isLoading, isError, data } = useStoreLikeQuery(userId, storeId);
+  const { isLoading, isError, data: like } = useStoreLikeQuery(userId, storeId);
 
   const { storeName, storeStar, reviewCount } = storeInfo as StoreDetailInfo;
 
-  const onClickLikes = useLoginCheck(() => {
-    // user정보의 favorites에 가게ID 추가하는 mutation 처리
-    // 낙관적 업데이트
+  const likeSettingInfo = {
+    userId: userId,
+    storeId: storeId,
+    like: !like?.isLike,
+  };
+  const { mutate } = useSetLikeMutation();
+
+  const onClickLikeButton = useLoginCheck(() => {
+    mutate(likeSettingInfo);
   });
 
   return (
@@ -30,11 +37,11 @@ function StoreInfo() {
         <button>
           <i className="fas fa-phone-alt"></i>전화
         </button>
-        <button onClick={onClickLikes}>
-          {isLoading || isError || !data?.isLikes ? (
-            <i className="far fa-heart dib" />
-          ) : (
+        <button onClick={onClickLikeButton}>
+          {!(isLoading || isError) && like?.isLike ? (
             <i className="fas fa-heart dib" />
+          ) : (
+            <i className="far fa-heart dib" />
           )}
           찜
         </button>
