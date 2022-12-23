@@ -7,11 +7,11 @@ export interface StoreInfo {
   deliveryTime: number;
   deliveryTip: number;
   storeStar: number;
-  reviewCount?: number;
+  reviewCount: number;
 }
 
 export interface IReview {
-  reviewId: number;
+  id: number;
   star: number;
   content: string;
   date: string;
@@ -26,6 +26,5 @@ export interface IMenuItem {
 
 export interface StoreDetailInfo extends StoreInfo {
   tel: string;
-  reviews: Array<IReview>;
   menu: Array<IMenuItem>;
 }

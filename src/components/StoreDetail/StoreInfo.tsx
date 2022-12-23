@@ -31,7 +31,7 @@ function StoreInfo() {
       <span className="store-name">{storeName}</span>
       <p className="store-info">
         <i className="fas fa-star"></i>
-        {storeStar} | 리뷰 {reviewCount ? reviewCount : 0} 개
+        {storeStar} | 리뷰 {reviewCount} 개
       </p>
       <div className="store-connect">
         <button>
