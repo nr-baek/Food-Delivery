@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { StyledContainer } from "./styles";
 import StoreItem from "./StoreItem";
 import { useNavigate } from "react-router-dom";
-import { useStoreListOfLikesQuery } from "hooks/storeListQuery";
+import { useStoreListOfLikeQuery } from "hooks/storeListQuery";
 import { useUserId } from "store";
 import { Message } from "components/common/styles";
 
@@ -15,7 +15,7 @@ function LikesStoreList() {
     data: storeLists,
     isError,
     error,
-  } = useStoreListOfLikesQuery(id);
+  } = useStoreListOfLikeQuery(id);
 
   useEffect(() => {
     const isLogin = localStorage.getItem("deliveryApp");

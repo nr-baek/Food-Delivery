@@ -9,8 +9,8 @@ export const storeListOfCategoryApi = async (category?: string) => {
   return res.json();
 };
 
-export const storeListOfLikesApi = async (userId?: string) => {
-  const res = await request.get(`/userLikesStore/${userId}`);
+export const storeListOfLikeApi = async (userId?: string) => {
+  const res = await request.get(`/likeStoreList/${userId}`);
   return res.json();
 };
 
@@ -20,7 +20,7 @@ export const useStoreListOfCategoryQuery = (
 ): UseQueryResult<Array<StoreInfo>, Error> =>
   useQuery(["storeList", category], () => storeListOfCategoryApi(category));
 
-export const useStoreListOfLikesQuery = (
+export const useStoreListOfLikeQuery = (
   userId?: string,
 ): UseQueryResult<Array<StoreInfo>, Error> =>
-  useQuery(["storeList", userId], () => storeListOfLikesApi(userId));
+  useQuery(["storeList", userId], () => storeListOfLikeApi(userId));
