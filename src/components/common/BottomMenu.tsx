@@ -1,29 +1,48 @@
 import React from "react";
 import { MenuWrapper } from "./styles";
-import home from "../../assets/images/menuIcons/homeIcon.png";
-import myPage from "../../assets/images/menuIcons/myPageIcon.svg";
-import like from "../../assets/images/menuIcons/zzimIcon.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BottomMenu() {
+  const { pathname } = useLocation();
+
+  const isHome =
+    pathname === "/" ||
+    pathname === "/store/dessert" ||
+    pathname === "/store/koreanFood" ||
+    pathname === "/store/chineseFood" ||
+    pathname === "/store/japaneseFood" ||
+    pathname === "/store/fastFood" ||
+    pathname === "/store/chicken" ||
+    pathname === "/store/pizza" ||
+    pathname === "/store/schoolFood" ||
+    pathname === "/store/dish";
+
+  const isLikes = pathname === "/likes";
+  const isMypage = pathname === "/mypage";
+
   return (
     <MenuWrapper>
       <ul>
         <li>
           <Link to="/">
-            <img src={home} alt="" />홈
+            <span className="a11y-hidden">홈</span>
+            <i className={`icon fa-solid fa-house ${isHome ? "select" : ""}`} />
           </Link>
         </li>
         <li>
           <Link to="/likes">
-            <img src={like} alt="" />
-            찜한 가게
+            <span className="a11y-hidden">찜한 가게</span>
+            <i
+              className={`icon fa-solid fa-heart ${isLikes ? "select" : ""}`}
+            />
           </Link>
         </li>
         <li>
           <Link to="/mypage">
-            <img src={myPage} alt="" />
-            My page
+            <span className="a11y-hidden">마이 페이지</span>
+            <i
+              className={`icon fa-solid fa-user ${isMypage ? "select" : ""}`}
+            />
           </Link>
         </li>
       </ul>

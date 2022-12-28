@@ -9,20 +9,20 @@ export const StyledSection = styled.section`
   width: 100%;
   overflow: hidden;
   .carousel-wrap {
-    width: 508px;
-    height: 220px;
+    width: 450px;
+    height: 210px;
     .ad-item-container {
       display: flex;
       position: absolute;
       transform: translateX(
-        ${(props: SectionProps) => `${(props.idx + 1) * -513}px`}
+        ${(props: SectionProps) => `${(props.idx + 1) * -455}px`}
       );
       transition-property: transform;
       transition-duration: 0;
       .ad-item {
         img {
           display: inline-block;
-          width: 508px;
+          width: 450px;
           height: 100%;
         }
 
@@ -57,49 +57,20 @@ export const StyledSection = styled.section`
 `;
 
 export const CategoryList = styled.ul`
+  padding: 10px;
   display: flex;
   flex-flow: row wrap;
-  height: 347px;
+  justify-content: space-around;
+  height: 360px;
 
   li {
-    width: 33%;
-    flex-grow: 1;
+    width: 27%;
+    /* flex-grow: 1; */
     text-align: center;
-    border: 1px solid #ededed;
-    background: linear-gradient(0deg, #fff5e9, white, white);
-    &:first-child {
-      border-top: none;
-      border-radius: 0 0 10px 0;
-    }
-    &:nth-child(2) {
-      border-top: none;
-      border-radius: 0 0 10px 10px;
-    }
-    &:nth-child(3) {
-      border-top: none;
-      border-radius: 0 0 0 10px;
-    }
-    &:nth-child(4) {
-      border-radius: 0 10px 10px 0;
-    }
-    &:nth-child(5) {
-      border-radius: 10px;
-    }
-    &:nth-child(6) {
-      border-radius: 10px 0 0 10px;
-    }
-    &:nth-child(7) {
-      border-bottom: none;
-      border-radius: 0 10px 0 0;
-    }
-    &:nth-child(8) {
-      border-bottom: none;
-      border-radius: 10px 10px 0 0;
-    }
-    &:nth-child(9) {
-      border-bottom: none;
-      border-radius: 10px 0 0 0;
-    }
+    background-color: #fff8ef;
+    border-radius: 20px;
+    margin: 5px;
+    opacity: 0.9;
     a {
       height: 100%;
       display: flex;
@@ -109,12 +80,16 @@ export const CategoryList = styled.ul`
       padding: 10px 0;
     }
     img {
+      height: 50px;
       width: 50px;
       transition: all ease-out 0.3s;
     }
 
     &:hover {
+      background-color: #ffdeb2;
+      opacity: 1;
       img {
+        opacity: 1;
         transform: rotate(20deg);
       }
     }

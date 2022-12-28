@@ -3,27 +3,37 @@ import styled from "styled-components";
 export const MenuWrapper = styled.div`
   position: sticky;
   bottom: 0;
-  border-top: 1px solid #000;
+  border-top: 2px solid #c5c5c5;
   ul {
     display: flex;
     li {
       flex: 1 1 0;
       &:hover {
-        box-shadow: 1px 1px 7px 1px rgb(209, 209, 209) inset;
+        a {
+          .icon {
+            color: #d15c03;
+          }
+        }
       }
       &:not(:last-child) {
-        border-right: 1px solid #000;
+        /* border-right: 1px solid #000; */
       }
 
       a {
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        padding: 11px 0;
-        img {
-          display: inline-block;
-          width: 25px;
-          padding-bottom: 5px;
+        display: inline-block;
+        text-align: center;
+        /* height: 100%; */
+        width: 100%;
+        height: 70px;
+        .icon {
+          width: 100%;
+          color: #b19986;
+          font-size: 30px;
+          line-height: 69px;
+
+          &.select {
+            color: #d15c03;
+          }
         }
       }
     }
@@ -74,9 +84,10 @@ export const Container = styled.div`
   background-color: #fff;
   position: relative;
   margin: 20px auto;
-  width: 510px;
+  width: 450px;
   height: 700px;
-  border: 1px solid #000;
+  border: 1px solid #a5a5a5;
+  box-shadow: 0 9px 15px -3px rgb(0 0 0 / 20%);
   border-radius: 10px;
   font-family: "hanna";
   overflow: scroll;
