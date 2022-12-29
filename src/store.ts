@@ -1,8 +1,11 @@
-import { IUser } from "types/storeTypes";
+import { IOrderStore, IUserStore } from "types/storeTypes";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import produce from "immer";
+import { IOrderItem } from "types/responseTypes";
 
-const useUserStore = create<IUser>()(
+// 1. user정보 스토어
+const useUserStore = create<IUserStore>()(
   devtools(set => ({
     id: "",
     nickname: "",
@@ -16,3 +19,66 @@ const useUserStore = create<IUser>()(
 export const useUserId = () => useUserStore(state => state.id);
 export const useUserNickname = () => useUserStore(state => state.nickname);
 export const useUserActions = () => useUserStore(state => state.actions);
+
+// 2. 주문 정보 스토어
+
+const useOrderStore = create<IOrderStore>()(
+  devtools(set => ({
+    orderList: [],
+    totalAmount: 0,
+    actions: {
+      addMenu: (idx, menu) =>
+        set(state => ({
+          orderList: produce(state.orderList, orderList => {
+            orderList[idx] = menu;
+          }),
+        })),
+      deleteMenu: idx =>
+        set(state => ({
+          orderList: produce(state.orderList, orderList => {
+            orderList[idx] = null;
+          }),
+        })),
+      resetOrderList: () =>
+        set(state => ({
+          orderList: [],
+          totalAmount: 0,
+        })),
+      increaseMenuCount: idx =>
+        set(state => {
+          const newOrderList = produce(state.orderList, orderList => {
+            const orderItem = orderList[idx] as IOrderItem;
+            orderItem.orderCount += 1;
+          });
+          return {
+            orderList: newOrderList,
+            totalAmount: newOrderList.reduce((curr, menu, i) => {
+              if (menu) {
+                return curr + menu.foodPrice;
+              }
+              return curr;
+            }, 0),
+          };
+        }),
+      decreaseMenuCount: idx =>
+        set(state => {
+          const newOrderList = produce(state.orderList, orderList => {
+            const orderItem = orderList[idx] as IOrderItem;
+            orderItem.orderCount -= 1;
+          });
+          return {
+            orderList: newOrderList,
+            totalAmount: newOrderList.reduce((curr, menu, i) => {
+              if (menu) {
+                return curr + menu.foodPrice;
+              }
+              return curr;
+            }, 0),
+          };
+        }),
+    },
+  })),
+);
+
+export const useOrderList = () => useOrderStore(state => state.orderList);
+export const useOrderListAction = () => useOrderStore(state => state.actions);

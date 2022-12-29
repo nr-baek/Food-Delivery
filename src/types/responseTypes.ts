@@ -10,6 +10,11 @@ export interface StoreInfo {
   reviewCount: number;
 }
 
+export interface StoreDetailInfo extends StoreInfo {
+  tel: string;
+  menu: Array<IMenuItem>;
+}
+
 export interface IReview {
   id: number;
   star: number;
@@ -24,7 +29,6 @@ export interface IMenuItem {
   foodImage: string;
 }
 
-export interface StoreDetailInfo extends StoreInfo {
-  tel: string;
-  menu: Array<IMenuItem>;
+export interface IOrderItem extends IMenuItem {
+  orderCount: number;
 }
