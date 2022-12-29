@@ -16,6 +16,7 @@ export const StyledContainer = styled.ul`
       height: 80px;
       object-fit: cover;
       border-radius: 15px;
+      background-color: #fff;
     }
     .store-description {
       p {
@@ -32,8 +33,9 @@ export const StyledContainer = styled.ul`
         color: rgb(246, 246, 0);
       }
     }
+    transition: all ease-out 0.25s;
     :hover {
-      box-shadow: 1px 1px 7px 1px rgb(209, 209, 209) inset;
+      background-color: #fff3e0;
     }
   }
 `;

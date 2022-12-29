@@ -139,7 +139,7 @@ export const MenuBox = styled.div`
 
 export const OrderButton = styled.button`
   position: sticky;
-  left: 390px;
+  left: 350px;
   bottom: 15px;
   width: 75px;
   height: 75px;

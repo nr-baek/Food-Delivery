@@ -1,7 +1,7 @@
 import useLoginCheck from "hooks/useLoginCheck";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useOrderList } from "store";
 import { IMenuItem, StoreDetailInfo } from "types/responseTypes";
 import MenuItem from "./MenuItem";
 import { MenuBox, OrderButton } from "./styles";
@@ -9,20 +9,24 @@ import { MenuBox, OrderButton } from "./styles";
 function Menu() {
   const navigate = useNavigate();
   const { storeId } = useParams();
-
   const { data: storeInfo } = useStoreDetailQuery(storeId);
   const { menu } = storeInfo as StoreDetailInfo;
+  const orderList = useOrderList();
 
   const onClickButton = useLoginCheck(() => {
-    // 주문하시겠습니까 confirm하고
-    // true인 경우 주문하기로 페이지로 이동
+    navigate("/order/storeId");
   });
 
   return (
     <>
       <MenuBox>
-        {menu.map((menuItem: IMenuItem) => (
-          <MenuItem key={menuItem.foodName} menuInfo={menuItem} />
+        {menu.map((menuItem: IMenuItem, idx) => (
+          <MenuItem
+            key={menuItem.foodName}
+            idx={idx}
+            menuInfo={menuItem}
+            checked={Boolean(orderList[idx]?.orderCount)}
+          />
         ))}
       </MenuBox>
       <OrderButton onClick={onClickButton}>
