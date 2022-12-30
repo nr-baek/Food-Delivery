@@ -37,18 +37,40 @@ const useOrderStore = create<IOrderStore>()(
           }
           return state;
         }),
-      addMenu: (idx, menu) =>
-        set(state => ({
-          orderList: produce(state.orderList, orderList => {
+      addMenu: (idx, menu) => {
+        let newOrderList;
+        return set(state => {
+          newOrderList = produce(state.orderList, orderList => {
             orderList[idx] = menu;
-          }),
-        })),
-      deleteMenu: idx =>
-        set(state => ({
-          orderList: produce(state.orderList, orderList => {
+          });
+          return {
+            orderList: newOrderList,
+            totalAmount: newOrderList.reduce((curr, menu, i) => {
+              if (menu) {
+                return curr + menu.foodPrice * menu.orderCount;
+              }
+              return curr;
+            }, 0),
+          };
+        });
+      },
+      deleteMenu: idx => {
+        let newOrderList;
+        return set(state => {
+          newOrderList = produce(state.orderList, orderList => {
             orderList[idx] = null;
-          }),
-        })),
+          });
+          return {
+            orderList: newOrderList,
+            totalAmount: newOrderList.reduce((curr, menu, i) => {
+              if (menu) {
+                return curr + menu.foodPrice * menu.orderCount;
+              }
+              return curr;
+            }, 0),
+          };
+        });
+      },
       resetOrderList: () =>
         set(state => ({
           orderList: [],
@@ -64,7 +86,7 @@ const useOrderStore = create<IOrderStore>()(
             orderList: newOrderList,
             totalAmount: newOrderList.reduce((curr, menu, i) => {
               if (menu) {
-                return curr + menu.foodPrice;
+                return curr + menu.foodPrice * menu.orderCount;
               }
               return curr;
             }, 0),
@@ -80,7 +102,7 @@ const useOrderStore = create<IOrderStore>()(
             orderList: newOrderList,
             totalAmount: newOrderList.reduce((curr, menu, i) => {
               if (menu) {
-                return curr + menu.foodPrice;
+                return curr + menu.foodPrice * menu.orderCount;
               }
               return curr;
             }, 0),
@@ -91,5 +113,6 @@ const useOrderStore = create<IOrderStore>()(
 );
 
 export const useStoreId = () => useOrderStore(state => state.storeId);
+export const useTotalAmount = () => useOrderStore(state => state.totalAmount);
 export const useOrderList = () => useOrderStore(state => state.orderList);
 export const useOrderListAction = () => useOrderStore(state => state.actions);

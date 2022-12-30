@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useOrderListAction } from "store";
 import { DelButton } from "../Order/styles";
 import PrevButton from "./PrevButton";
 import { StyledHeader } from "./styles";
@@ -10,13 +11,19 @@ interface Props {
 }
 
 function Header({ children, prevBtn, delBtn }: Props) {
+  const { resetOrderList } = useOrderListAction();
+
+  const onClick = useCallback(() => {
+    resetOrderList();
+  }, [resetOrderList]);
+
   return (
     <StyledHeader delBtn={delBtn}>
       <h1>{children}</h1>
       {prevBtn && <PrevButton />}
-      {delBtn && <DelButton>전체삭제</DelButton>}
+      {delBtn && <DelButton onClick={onClick}>전체삭제</DelButton>}
     </StyledHeader>
   );
 }
 
-export default Header;
+export default React.memo(Header);

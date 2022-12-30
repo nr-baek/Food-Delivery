@@ -49,8 +49,9 @@ export const EmptyBack = styled.div`
   .emptyImg {
     background-image: url(${emptyImage});
     background-size: 80%;
+    background-repeat: no-repeat;
     background-position: center 180%;
-    width: 508px;
+    width: 100%;
     height: 430px;
   }
   p {
@@ -122,6 +123,10 @@ export const OrderInfoBox = styled.div`
       }
       .order-price {
         margin-right: 10px;
+      }
+
+      &:hover {
+        background-color: #f07415;
       }
     }
   }

@@ -86,8 +86,7 @@ export const Container = styled.div`
   margin: 20px auto;
   width: 450px;
   height: 700px;
-  border: 1px solid #a5a5a5;
-  box-shadow: 0 9px 15px -3px rgb(0 0 0 / 20%);
+  box-shadow: 0 9px 15px -3px rgb(0 0 0 / 30%);
   border-radius: 10px;
   font-family: "hanna";
   overflow: scroll;
