@@ -3,7 +3,7 @@ import useSetLikeMutation from "hooks/useSetLikeMutation";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import useStoreLikeQuery from "hooks/useStoreLikeQuery";
 import { useParams } from "react-router-dom";
-import { useUserId } from "store";
+import { useOrderListAction, useUserId } from "store";
 import { StoreDetailInfo } from "types/responseTypes";
 import { StoreInfoBox } from "./styles";
 
@@ -15,6 +15,8 @@ function StoreInfo() {
 
   const { storeName, storeStar, reviewCount } = storeInfo as StoreDetailInfo;
 
+  const { setStoreName, setOrderDate } = useOrderListAction();
+
   const likeSettingInfo = {
     userId: userId,
     storeId: storeId,
@@ -25,6 +27,9 @@ function StoreInfo() {
   const onClickLikeButton = useLoginCheck(() => {
     mutate(likeSettingInfo);
   });
+
+  setStoreName(storeName);
+  setOrderDate("");
 
   return (
     <StoreInfoBox>

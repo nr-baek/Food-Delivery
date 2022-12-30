@@ -29,10 +29,10 @@ function App() {
           <Route path="/likes" element={<StoreListComp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/store/:category" element={<StoreListComp />} />
+          <Route path="/bill" element={<Bill />} />
         </Route>
         <Route path="/store/detail/:storeId" element={<StoreDetail />} />
         <Route path="/order/:storeId" element={<Order />} />
-        <Route path="/bill" element={<Bill />} />
         <Route path="/review" element={<Review />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

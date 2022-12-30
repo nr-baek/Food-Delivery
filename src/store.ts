@@ -24,10 +24,14 @@ export const useUserActions = () => useUserStore(state => state.actions);
 
 const useOrderStore = create<IOrderStore>()(
   devtools(set => ({
+    orderDate: "",
+    storeName: "",
     storeId: "",
     orderList: [],
     totalAmount: 0,
     actions: {
+      setOrderDate: (date: string) => set(state => ({ orderDate: date })),
+      setStoreName: (storeName: string) => set(state => ({ storeName })),
       setStoreId: paramsStoreId =>
         set(state => {
           if (state.storeId && state.storeId !== paramsStoreId) {
@@ -112,7 +116,10 @@ const useOrderStore = create<IOrderStore>()(
   })),
 );
 
+export const useStoreName = () => useOrderStore(state => state.storeName);
 export const useStoreId = () => useOrderStore(state => state.storeId);
 export const useTotalAmount = () => useOrderStore(state => state.totalAmount);
 export const useOrderList = () => useOrderStore(state => state.orderList);
+export const useOrderDate = () => useOrderStore(state => state.orderDate);
+
 export const useOrderListAction = () => useOrderStore(state => state.actions);

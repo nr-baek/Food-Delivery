@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const StyledBill = styled.div`
+  flex-grow: 1;
+  overflow: auto;
   .order-info {
     padding: 15px 30px 10px 30px;
     border-bottom: 7px solid #eee;
@@ -53,7 +55,7 @@ export const StyledBill = styled.div`
   .totalOrderedPrice {
     font-family: "hannaPro";
     font-size: 25px;
-    padding: 10px 35px 30px 35px;
+    padding: 10px 50px 30px 35px;
     display: flex;
     justify-content: space-between;
 
