@@ -14,7 +14,7 @@ function Menu() {
   const orderList = useOrderList();
 
   const onClickButton = useLoginCheck(() => {
-    navigate("/order/storeId");
+    navigate(`/order/${storeId}`);
   });
 
   return (

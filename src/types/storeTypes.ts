@@ -10,9 +10,11 @@ export interface IUserStore {
 }
 
 export interface IOrderStore {
+  storeId: string;
   orderList: Array<IOrderItem | null>;
   totalAmount: number;
   actions: {
+    setStoreId: (paramsStoreId: string) => void;
     addMenu: (idx: number, menu: IOrderItem) => void;
     deleteMenu: (idx: number) => void;
     resetOrderList: () => void;

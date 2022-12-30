@@ -5,6 +5,7 @@ import StorePrice from "./StorePrice";
 import { useParams } from "react-router-dom";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import { Message } from "components/common/styles";
+import { useOrderListAction } from "store";
 
 function Index() {
   const { storeId } = useParams();
@@ -15,6 +16,12 @@ function Index() {
     isError,
     error,
   } = useStoreDetailQuery(storeId);
+
+  const { setStoreId } = useOrderListAction();
+
+  if (storeId) {
+    setStoreId(storeId);
+  }
 
   return (
     <>

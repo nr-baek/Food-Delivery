@@ -24,9 +24,19 @@ export const useUserActions = () => useUserStore(state => state.actions);
 
 const useOrderStore = create<IOrderStore>()(
   devtools(set => ({
+    storeId: "",
     orderList: [],
     totalAmount: 0,
     actions: {
+      setStoreId: paramsStoreId =>
+        set(state => {
+          if (state.storeId && state.storeId !== paramsStoreId) {
+            return { storeId: paramsStoreId, orderList: [], totalAmount: 0 };
+          } else if (!state.storeId) {
+            return { storeId: paramsStoreId };
+          }
+          return state;
+        }),
       addMenu: (idx, menu) =>
         set(state => ({
           orderList: produce(state.orderList, orderList => {
@@ -80,5 +90,6 @@ const useOrderStore = create<IOrderStore>()(
   })),
 );
 
+export const useStoreId = () => useOrderStore(state => state.storeId);
 export const useOrderList = () => useOrderStore(state => state.orderList);
 export const useOrderListAction = () => useOrderStore(state => state.actions);
