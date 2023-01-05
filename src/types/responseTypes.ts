@@ -37,3 +37,15 @@ export interface IOrderResponse {
   order: Boolean;
   orderDate: string;
 }
+
+export interface IUserOrderListItem {
+  storeName: string;
+  totalAmount: number;
+  orderDate: string;
+  storeId: string;
+}
+
+export interface IUserOrderListResponse {
+  getData: boolean;
+  userOrderList: Array<IUserOrderListItem>;
+}

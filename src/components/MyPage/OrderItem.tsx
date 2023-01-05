@@ -1,16 +1,24 @@
 import React from "react";
 import { ItemList } from "./styles";
 import { Link } from "react-router-dom";
+import { IUserOrderListItem } from "types/responseTypes";
 
-function OrderItem() {
+interface Props {
+  orderInfo: IUserOrderListItem;
+}
+
+function OrderItem({ orderInfo }: Props) {
   return (
     <ItemList>
-      <Link to={`/store/detail/${1}`}>
-        <span className="storeName">임영웅의 티바두마리치킨 성수화양점</span>
-      </Link>
+      <div className="storeInfo">
+        <span className="storeName">{orderInfo.storeName}</span>
+        <Link to={`/store/detail/${orderInfo.storeId}`}>가게보기</Link>
+      </div>
       <div className="orderInfo">
-        <span className="orderDate">결제일시: 2023년 1월 5일 16:42:57</span>
-        <span className="amount">결제금액: 123,400원</span>
+        <span className="orderDate">결제일시: {orderInfo.orderDate}</span>
+        <span className="amount">
+          결제금액: {orderInfo.totalAmount.toLocaleString()}원
+        </span>
       </div>
     </ItemList>
   );

@@ -89,8 +89,16 @@ export const OrderSection = styled.section`
   ul {
     overflow: auto;
     height: 316px;
-    p {
-      display: block;
+    .message {
+      height: 316px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      p {
+        padding-bottom: 20px;
+        text-align: center;
+        font-size: 20px;
+      }
     }
   }
 `;
@@ -103,17 +111,27 @@ export const ItemList = styled.li`
   height: 80px;
   margin: 7px 0;
 
-  .storeName {
-    font-size: 20px;
-    color: #d15c03;
-    display: block;
-    overflow: hidden;
-    color: #222;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .storeInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .storeName {
+      font-size: 20px;
+      color: #d15c03;
+      overflow: hidden;
+      color: #222;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-    &:hover {
-      color: #a54801;
+    a {
+      white-space: nowrap;
+      border: 1px solid #666;
+      border-radius: 4px;
+      padding: 3px 5px;
+      &:hover {
+        color: #a54801;
+      }
     }
   }
 
