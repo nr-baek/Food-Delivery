@@ -1,73 +1,47 @@
 import styled from "styled-components";
 
-export const InfoEditForm = styled.div`
+export const UserInfoContainer = styled.div`
+  height: 200px;
+  font-family: "hanna";
+
   section {
-    font-family: "hanna";
     font-size: 17px;
-    height: 200px;
-    padding: 10px;
+    padding: 10px 10px 0 10px;
 
     ul {
-      height: 100%;
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: center;
-      justify-content: center;
-
+      padding-top: 20px;
       li {
-        width: 90%;
+        margin: 0 auto;
+        width: 80%;
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         padding-bottom: 20px;
 
         .label {
-          width: 65px;
+          display: inline-block;
+          width: 105px;
         }
-        .userId {
-          width: 300px;
-        }
-
-        button,
-        input {
-          border: 1px solid #aaa;
-          border-radius: 3px;
-        }
-        button {
-          padding: 0;
-          margin-left: 5px;
-          background-color: #c0bebe;
-          color: #fff;
-          width: 40px;
-          height: 32px;
-        }
-        input {
-          width: 255px;
-          height: 30px;
-          padding: 0 10px;
-        }
-        .err-msg {
-          position: absolute;
-          display: block;
-          left: 100px;
-          bottom: 3px;
-          width: 300px;
-          font-family: "hanna";
-          font-size: 15px;
-          color: red;
+        .data {
+          margin-left: 10px;
         }
       }
+    }
+  }
 
-      .user-info-log {
-        font-family: "hannaAir";
-        font-size: 12px;
-        justify-content: flex-end;
-        margin-right: 60px;
-
-        a {
-          padding: 0 10px;
-        }
+  .logOutBtn {
+    width: 100%;
+    text-align: right;
+    button {
+      border: 2px solid #333;
+      padding: 5px;
+      border-radius: 5px;
+      margin-right: 30px;
+      display: inline-block;
+      color: #333;
+      font-size: 16px;
+      font-family: "hanna";
+      &:hover {
+        background-color: #f86b00;
+        color: #fff;
       }
     }
   }

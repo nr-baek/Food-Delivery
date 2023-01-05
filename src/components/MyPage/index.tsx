@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../common/Header";
-import InfoEdit from "./InfoEdit";
+import UserInfo from "./UserInfo";
 import OrderList from "./OrderList";
 
 function Index() {
   return (
     <>
       <Header>My Page</Header>
-      <InfoEdit />
+      <UserInfo />
       <OrderList />
     </>
   );
