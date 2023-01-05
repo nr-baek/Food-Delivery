@@ -128,6 +128,14 @@ export const OrderInfoBox = styled.div`
       &:hover {
         background-color: #f07415;
       }
+
+      &[disabled] {
+        background-color: #9a9a9a;
+
+        .list-count-wrap {
+          color: #9a9a9a;
+        }
+      }
     }
   }
 `;
@@ -199,5 +207,26 @@ export const OrderList = styled.ul`
         cursor: pointer;
       }
     }
+  }
+`;
+
+export const MessageComp = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(99, 99, 99, 0.8);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  span {
+    font-size: 70px;
+  }
+  p {
+    margin-top: 20px;
+    font-size: 26px;
   }
 `;

@@ -32,3 +32,8 @@ export interface IMenuItem {
 export interface IOrderItem extends IMenuItem {
   orderCount: number;
 }
+
+export interface IOrderResponse {
+  order: Boolean;
+  orderDate: string;
+}

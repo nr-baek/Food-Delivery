@@ -1,13 +1,44 @@
+import { IOrderInfo } from "hooks/useOrderMutation";
 import React from "react";
-import { useOrderList, useTotalAmount } from "store";
+import { useNavigate } from "react-router-dom";
+import {
+  useOrderList,
+  useStoreId,
+  useStoreName,
+  useTotalAmount,
+  useUserId,
+} from "store";
 
-function OrderButton() {
+interface Props {
+  isLoading: boolean;
+  order: (orderInfo: IOrderInfo) => Promise<void>;
+}
+
+function OrderButton({ isLoading, order }: Props) {
   const orderList = useOrderList();
   const totalAmount = useTotalAmount();
+  const navigate = useNavigate();
+  const userId = useUserId();
+  const storeId = useStoreId();
+  const storeName = useStoreName();
+
+  const onClick = () => {
+    const orderInfo: IOrderInfo = {
+      userId,
+      storeId,
+      storeName,
+      orderList,
+      totalAmount,
+    };
+
+    order(orderInfo).then(() => {
+      navigate("/bill");
+    });
+  };
 
   return (
-    <div className="order-btn-wrap">
-      <button className="order-btn">
+    <div className="order-btn-wrap" onClick={onClick}>
+      <button className="order-btn" disabled={isLoading}>
         <span className="list-count-wrap">
           <span className="list-count">
             {orderList.reduce((curr, menu, i) => {
@@ -25,4 +56,4 @@ function OrderButton() {
   );
 }
 
-export default OrderButton;
+export default React.memo(OrderButton);
