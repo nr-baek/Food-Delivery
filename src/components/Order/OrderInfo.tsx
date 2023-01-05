@@ -40,7 +40,7 @@ function OrderInfo() {
   }, []);
 
   return orderList.some(list => list) ? (
-    <OrderInfoBox>
+    <OrderInfoBox className={isLoading ? "loading" : ""}>
       <StoreInfo />
       <OrderList>
         {orderList.map((orderItem, idx) => {

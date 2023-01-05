@@ -138,6 +138,11 @@ export const OrderInfoBox = styled.div`
       }
     }
   }
+
+  &.loading {
+    height: 635px;
+    overflow: hidden;
+  }
 `;
 
 export const OrderList = styled.ul`
