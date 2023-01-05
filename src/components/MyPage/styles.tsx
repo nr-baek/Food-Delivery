@@ -1,18 +1,11 @@
 import styled from "styled-components";
 
 export const InfoEditForm = styled.div`
-  display: flex;
-  flex-flow: column;
-  /* flex-grow: 1; */
-  /* height: 100%; */
-  /* overflow: auto; */
-
   section {
     font-family: "hanna";
     font-size: 17px;
     height: 200px;
     padding: 10px;
-    /* position: relative; */
 
     ul {
       height: 100%;
@@ -28,7 +21,6 @@ export const InfoEditForm = styled.div`
         align-items: center;
         justify-content: center;
         padding-bottom: 20px;
-        /* background-color: pink; */
 
         .label {
           width: 65px;
@@ -82,56 +74,65 @@ export const InfoEditForm = styled.div`
 `;
 
 export const OrderSection = styled.section`
-  flex: 1 1 auto;
   background-color: #eee;
 
   h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
     height: 50px;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
     background-color: #fff;
   }
+
   ul {
-    font-family: "yeonsung";
+    overflow: auto;
+    height: 316px;
+    p {
+      display: block;
+    }
   }
 `;
 
 export const ItemList = styled.li`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  display: block;
   background-color: #fff;
   padding: 15px;
   border-bottom: 2px solid #ddd;
-  height: 100px;
+  height: 80px;
   margin: 7px 0;
-  span {
-    display: inline-block;
-    width: 380px;
-    border-bottom: 1px solid #ddd;
 
-    span {
-      margin-right: 10px;
-    }
+  .storeName {
+    font-size: 20px;
+    color: #d15c03;
+    display: block;
+    overflow: hidden;
+    color: #222;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-    span:first-child {
-      font-family: "jua";
-      font-size: 24px;
-    }
-    span:nth-of-type(2) {
-      font-size: 20px;
+    &:hover {
+      color: #a54801;
     }
   }
 
-  a {
-    font-family: "jua";
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    padding: 5px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+  .orderInfo {
+    margin-top: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .amount {
+      font-size: 17px;
+      text-align: right;
+      color: #222;
+    }
+
+    .orderDate {
+      color: #666;
+      font-size: 14px;
+      text-align: right;
+    }
   }
 `;

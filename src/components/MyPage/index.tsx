@@ -3,7 +3,7 @@ import Header from "../common/Header";
 import InfoEdit from "./InfoEdit";
 import OrderList from "./OrderList";
 
-function index() {
+function Index() {
   return (
     <>
       <Header>My Page</Header>
@@ -13,4 +13,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
