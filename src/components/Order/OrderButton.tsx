@@ -1,6 +1,8 @@
 import { IOrderInfo } from "hooks/useOrderMutation";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useStoreDetailQuery from "hooks/useStoreDetailQuery";
+import { StoreDetailInfo } from "types/responseTypes";
 import {
   useOrderList,
   useStoreId,
@@ -22,6 +24,9 @@ function OrderButton({ isLoading, order }: Props) {
   const storeId = useStoreId();
   const storeName = useStoreName();
 
+  const { data: storeInfo } = useStoreDetailQuery(storeId);
+  const { minPrice } = storeInfo as StoreDetailInfo;
+
   const onClick = () => {
     const orderInfo: IOrderInfo = {
       userId,
@@ -31,9 +36,13 @@ function OrderButton({ isLoading, order }: Props) {
       totalAmount,
     };
 
-    order(orderInfo).then(() => {
-      navigate("/bill");
-    });
+    if (totalAmount >= minPrice) {
+      order(orderInfo).then(() => {
+        navigate("/bill");
+      });
+    } else {
+      alert(`최소 주문금액은 ${minPrice.toLocaleString()}원 입니다.`);
+    }
   };
 
   return (
