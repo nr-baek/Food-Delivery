@@ -16,11 +16,16 @@ export interface StoreDetailInfo extends StoreInfo {
 }
 
 export interface IReview {
-  id: number;
+  userId: number;
   star: number;
   content: string;
   date: string;
   nickname: string;
+}
+
+export interface IReviewResponse {
+  reviewList: Array<IReview>;
+  average: string;
 }
 
 export interface IMenuItem {

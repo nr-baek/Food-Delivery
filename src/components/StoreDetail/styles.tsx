@@ -190,6 +190,12 @@ export const ReviewInfoBox = styled.div`
   }
 `;
 
+export const Loading = styled.p`
+  text-align: center;
+  font-size: 20px;
+  padding: 20px 0;
+`;
+
 export const ReviewItemBox = styled.div`
   padding: 15px;
   width: 400px;
