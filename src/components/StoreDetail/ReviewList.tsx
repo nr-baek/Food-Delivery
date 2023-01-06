@@ -3,8 +3,8 @@ import useReviewQuery from "hooks/useReviewQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import ReviewItem from "./ReviewItem";
 import { Loading, ReviewInfoBox } from "./styles";
-import request from "utils/request";
 import { useUserId } from "store";
+import checkReviewable from "utils/checkReviewable";
 
 function ReviewList() {
   const navigate = useNavigate();
@@ -15,11 +15,10 @@ function ReviewList() {
 
   const onClickButton = useLoginCheck(async () => {
     try {
-      const response = await request.get(`/reviewable/${userId}/${storeId}`);
-      const { isOrdered } = await response.json();
+      const { isOrdered } = await checkReviewable(userId, storeId as string);
 
       if (isOrdered) {
-        navigate("/review");
+        navigate(`/review/${storeId}`);
       } else {
         alert("해당 가게의 주문 기록이 없습니다.");
       }

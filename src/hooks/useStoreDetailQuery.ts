@@ -12,7 +12,7 @@ const useStoreDetailQuery = (
   storeId?: string,
 ): UseQueryResult<StoreDetailInfo, Error> =>
   useQuery(["storeList", storeId], () => storeDetailApi(storeId), {
-    staleTime: 300000,
+    staleTime: 3000,
   });
 
 export default useStoreDetailQuery;

@@ -46,6 +46,7 @@ export const ReviewWrapper = styled.div`
       width: 50px;
       height: 50px;
       background-size: cover;
+      cursor: pointer;
     }
     .empty-star {
       background-image: url(${emptyStar});
@@ -57,10 +58,12 @@ export const ReviewWrapper = styled.div`
 
   textarea {
     font-size: 18px;
+    height: 170px;
     display: block;
     width: 350px;
     margin: 0 auto;
     resize: none;
+    padding: 5px;
   }
   .fail-msg {
     font-family: "hannaPro";
@@ -94,6 +97,11 @@ export const ReviewWrapper = styled.div`
 
       &:hover {
         background-color: #e99400;
+      }
+
+      &[disabled] {
+        background-color: #9a9a9a;
+        cursor: auto;
       }
     }
   }
