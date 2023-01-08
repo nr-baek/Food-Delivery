@@ -23,6 +23,11 @@ function OrderList() {
             <p>{error.message}</p>
           </div>
         )}
+        {data?.userOrderList.length === 0 && (
+          <div className="message">
+            <p>주문한 내역이 없습니다.</p>
+          </div>
+        )}
         {data?.userOrderList.map(orderInfo => (
           <OrderItem key={orderInfo.orderDate} orderInfo={orderInfo} />
         ))}

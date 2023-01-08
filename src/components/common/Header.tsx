@@ -8,9 +8,10 @@ interface Props {
   children: string;
   prevBtn?: boolean;
   delBtn?: boolean;
+  scrollUp?: boolean;
 }
 
-function Header({ children, prevBtn, delBtn }: Props) {
+function Header({ children, prevBtn, delBtn, scrollUp }: Props) {
   const { resetOrderList } = useOrderListAction();
 
   const onClick = useCallback(() => {
@@ -19,7 +20,7 @@ function Header({ children, prevBtn, delBtn }: Props) {
 
   return (
     <StyledHeader delBtn={delBtn}>
-      <h1>{children}</h1>
+      <h1 className={scrollUp ? "hide" : ""}>{children}</h1>
       {prevBtn && <PrevButton />}
       {delBtn && <DelButton onClick={onClick}>전체삭제</DelButton>}
     </StyledHeader>

@@ -13,12 +13,7 @@ function MenuItem({ menuInfo, idx, checked }: Props) {
   const { addMenu, deleteMenu } = useOrderListAction();
 
   const onClick = useCallback(
-    (e: React.MouseEvent<HTMLLabelElement>) => {
-      const target = e.target;
-      if (!(target instanceof HTMLInputElement)) {
-        return;
-      }
-
+    (e: React.MouseEvent<HTMLInputElement>) => {
       if (checked) {
         deleteMenu(idx);
       } else {
@@ -29,12 +24,13 @@ function MenuItem({ menuInfo, idx, checked }: Props) {
   );
 
   return (
-    <label htmlFor={menuInfo.foodName} id={idx + ""} onClick={onClick}>
+    <label htmlFor={menuInfo.foodName} id={idx + ""}>
       <div className="menu-item">
         <input
           type="checkbox"
           id={menuInfo.foodName}
           checked={checked}
+          onClick={onClick}
           readOnly
         />
         <div>

@@ -57,11 +57,22 @@ export const StyledHeader = styled.header`
   background-color: #fff;
 
   h1 {
+    margin: 0 auto;
     text-align: center;
     font-size: 30px;
     font-family: "hanna";
     /* color: #555; */
+    width: 350px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     color: #d15c03;
+    opacity: 1;
+    transition: all 0.1s ease-in-out;
+
+    &.hide {
+      opacity: 0;
+    }
   }
 
   .prevBtn {
