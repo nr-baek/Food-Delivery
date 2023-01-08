@@ -27,4 +27,4 @@ function StoreDetailMain() {
   );
 }
 
-export default StoreDetailMain;
+export default React.memo(StoreDetailMain);

@@ -1,3 +1,4 @@
+import React from "react";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import { useParams } from "react-router-dom";
 import { StoreDetailInfo } from "types/responseTypes";
@@ -26,4 +27,4 @@ function StorePrice() {
   );
 }
 
-export default StorePrice;
+export default React.memo(StorePrice);

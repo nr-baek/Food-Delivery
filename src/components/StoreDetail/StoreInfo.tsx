@@ -1,3 +1,4 @@
+import React from "react";
 import useLoginCheck from "hooks/useLoginCheck";
 import useSetLikeMutation from "hooks/useSetLikeMutation";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
@@ -58,4 +59,4 @@ function StoreInfo() {
   );
 }
 
-export default StoreInfo;
+export default React.memo(StoreInfo);
