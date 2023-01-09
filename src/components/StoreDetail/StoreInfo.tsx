@@ -25,7 +25,7 @@ function StoreInfo() {
   };
   const { mutate } = useSetLikeMutation();
 
-  const onClickLikeButton = useLoginCheck(() => {
+  const onClickLikeButton = useLoginCheck(userId, () => {
     mutate(likeSettingInfo);
   });
 

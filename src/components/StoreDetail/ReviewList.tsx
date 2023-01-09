@@ -13,7 +13,7 @@ function ReviewList() {
 
   const { data, isLoading } = useReviewQuery(storeId);
 
-  const onClickButton = useLoginCheck(async () => {
+  const onClickButton = useLoginCheck(userId, async () => {
     try {
       const { isOrdered } = await checkReviewable(userId, storeId as string);
 
