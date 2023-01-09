@@ -3,36 +3,28 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserActions } from "store";
-import request from "utils/request";
+import { useUserNickname } from "store";
 import AuthTemplate from "./AuthTemplate";
 import { AuthButton, Error } from "./styles";
 
-const idReg = /^[a-zA-Z0-9]{4,11}$/;
-const pwReg = /^[a-zA-Z0-9]{5,15}$/;
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+const pwReg = /^[a-zA-Z0-9]{6,15}$/;
 
 export default function Login() {
   const navigate = useNavigate();
-  const userAction = useUserActions();
+  const nickname = useUserNickname();
 
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [idCheckError, setIdCheckError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [loginError, setLoginError] = useState("");
 
   const onChangeId = useCallback((e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
-
-    setLoginError("");
-    setId(target.value);
-
-    if (!idReg.test(target.value)) {
-      setIdCheckError("아이디는 4~11자의 영문 소문자, 숫자입니다.");
-    } else {
-      setIdCheckError("");
-    }
+    setEmail(target.value);
   }, []);
 
   const onChangePw = useCallback((e: ChangeEvent) => {
@@ -42,7 +34,7 @@ export default function Login() {
     setPassword(target.value);
 
     if (!pwReg.test(target.value)) {
-      setPwCheckError("비밀번호는 5~15자의 영문, 숫자입니다.");
+      setPwCheckError("비밀번호는 6~15자의 영문, 숫자입니다.");
     } else {
       setPwCheckError("");
     }
@@ -51,45 +43,34 @@ export default function Login() {
   const onClickSubmit = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      setLoading(true);
-
-      const user = {
-        id,
-        password,
-      };
-
       try {
-        const response = await request.post("/login", user);
-        if (response.ok) {
-          const { userId, userNickname } = await response.json();
-          userAction.setId(userId);
-          userAction.setNickname(userNickname);
-          localStorage.setItem(
-            "deliveryApp",
-            JSON.stringify({ userId, userNickname }),
-          );
-          navigate("/");
-        } else if (response.status === 401) {
-          setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
-        } else {
-          throw new (Error as any)("error!");
-        }
+        setLoading(true);
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/");
         setLoading(false);
       } catch (error) {
-        setLoginError(error.message);
+        console.log(error);
+        if (
+          error.code === "auth/user-not-found" ||
+          error.code === "auth/wrong-password"
+        ) {
+          setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
+        } else {
+          setLoginError(error.code);
+        }
+
         setLoading(false);
       }
     },
-    [id, password, navigate, userAction],
+    [email, password, navigate],
   );
 
   useEffect(() => {
-    const isLogin = localStorage.getItem("deliveryApp");
-    if (isLogin) {
+    if (!loading && nickname) {
       alert("이미 로그인 상태입니다.");
       navigate("/");
     }
-  }, [navigate]);
+  }, [nickname, navigate, loading]);
 
   return (
     <AuthTemplate>
@@ -98,10 +79,10 @@ export default function Login() {
           <legend>회원 로그인 폼</legend>
           <div className="input-box">
             <input
-              type="text"
+              type="email"
               autoComplete="off"
               placeholder="아이디"
-              value={id}
+              value={email}
               onChange={onChangeId}
             />
           </div>
@@ -116,15 +97,13 @@ export default function Login() {
           <AuthButton
             type="submit"
             disabled={
-              loading || !(id && password) || idCheckError || pwCheckError
-                ? true
-                : false
+              loading || !(email && password) || pwCheckError ? true : false
             }
             onClick={onClickSubmit}
           >
             로그인
           </AuthButton>
-          <Error>{idCheckError || pwCheckError || loginError}</Error>
+          <Error>{pwCheckError || loginError}</Error>
         </fieldset>
       </form>
       <div className="join">

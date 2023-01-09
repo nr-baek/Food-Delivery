@@ -5,17 +5,22 @@ import { AuthButton, Error, Success } from "./styles";
 import { useCallback } from "react";
 import { ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-
-import "../../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 import { getDatabase, ref, set } from "firebase/database";
+import { useUserNickname } from "store";
 
 const pwReg = /^[a-zA-Z0-9]{6,15}$/;
 const nicReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const checkingNickname = useUserNickname();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -114,10 +119,15 @@ function SignUp() {
         likes: [],
         orderList: [],
       });
+
+      setSignUpSuccess(true);
       setInit();
 
-      setSignupLoading(false);
-      setSignUpSuccess(true);
+      setTimeout(() => {
+        setSignupLoading(false);
+        signOut(auth);
+        navigate("/login");
+      }, 1500);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setSignUpError("이미 가입된 이메일입니다.");
@@ -132,12 +142,11 @@ function SignUp() {
   };
 
   useEffect(() => {
-    const isLogin = localStorage.getItem("deliveryApp");
-    if (isLogin) {
+    if (checkingNickname) {
       alert("현재 로그인된 상태입니다.");
       navigate("/");
     }
-  }, [navigate]);
+  }, [checkingNickname, navigate]);
 
   return (
     <AuthTemplate>
@@ -186,7 +195,7 @@ function SignUp() {
             </Error>
           )}
           {signUpSuccess && (
-            <Success>회원가입되었습니다! 로그인을 해주세요.</Success>
+            <Success>회원가입 완료! 로그인 화면으로 이동합니다.</Success>
           )}
           <AuthButton
             type="submit"

@@ -11,16 +11,26 @@ import { Container } from "./components/common/styles";
 import Login from "./components/AuthTemplate/Login";
 import SignUp from "./components/AuthTemplate/SignUp";
 import { useUserActions } from "store";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
 function App() {
   const { setId, setNickname } = useUserActions();
 
-  const loginInfo = localStorage.getItem("deliveryApp");
-  if (loginInfo) {
-    const { userId, userNickname } = JSON.parse(loginInfo);
-    setId(userId);
-    setNickname(userNickname);
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user && user.displayName) {
+        setId(user.uid);
+        setNickname(user.displayName);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [setId, setNickname]);
+
   return (
     <Container>
       <Routes>
