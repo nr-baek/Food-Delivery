@@ -1,26 +1,25 @@
 import { useQuery } from "react-query";
 import { UseQueryResult } from "react-query/types/react/types";
-import request from "utils/request";
 import { StoreInfo } from "types/responseTypes";
+import { getDataFromDB } from "utils/getDataFromDB";
 
-// api
-export const storeListOfCategoryApi = async (category?: string) => {
-  const res = await request.get(`/category/${category}`);
-  return res.json();
+export const getStoreListOfCategoryApi = async (category?: string) => {
+  const data = await getDataFromDB(`category/${category}`);
+  return data ? data : [];
 };
 
-export const storeListOfLikeApi = async (userId?: string) => {
-  const res = await request.get(`/likeStoreList/${userId}`);
-  return res.json();
+export const getStoreListOfLikeApi = async (userId?: string) => {
+  const data = await getDataFromDB(`users/${userId}/likes`);
+  return data ? data : [];
 };
 
 // Query
 export const useStoreListOfCategoryQuery = (
   category?: string,
 ): UseQueryResult<Array<StoreInfo>, Error> =>
-  useQuery(["storeList", category], () => storeListOfCategoryApi(category));
+  useQuery(["storeList", category], () => getStoreListOfCategoryApi(category));
 
 export const useStoreListOfLikeQuery = (
   userId?: string,
 ): UseQueryResult<Array<StoreInfo>, Error> =>
-  useQuery(["storeList", userId], () => storeListOfLikeApi(userId));
+  useQuery(["storeList", userId], () => getStoreListOfLikeApi(userId));

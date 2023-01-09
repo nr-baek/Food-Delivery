@@ -1,10 +1,10 @@
 import { useQuery, UseQueryResult } from "react-query";
 import { IReviewResponse } from "types/responseTypes";
-import request from "utils/request";
+import { getDataFromDB } from "utils/getDataFromDB";
 
 export const getReviewApi = async (storeId?: string) => {
-  const res = await request.get(`/review/${storeId}`);
-  return res.json();
+  const data = await getDataFromDB(`reviews/${storeId}`);
+  return data ? data : [];
 };
 
 const useReviewQuery = (

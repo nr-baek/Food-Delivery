@@ -1,16 +1,33 @@
+import { get, orderByChild, query, ref } from "@firebase/database";
+import { db } from "../firebase";
 import { useQuery } from "react-query";
 import { UseQueryResult } from "react-query/types/react/types";
-import request from "utils/request";
-import { IUserOrderListResponse } from "types/responseTypes";
+import { IUserOrderListItem } from "types/responseTypes";
 
-export const userOrderListApi = async (userId?: string) => {
-  const res = await request.get(`/orderList/${userId}`);
-  return res.json();
+export const userOrderListApi = async (userId: string) => {
+  let orderList: Array<IUserOrderListItem> = [];
+  try {
+    await get(
+      query(ref(db, `users/${userId}/orderList`), orderByChild("orderDate")),
+    ).then(snapshot => {
+      if (snapshot.exists()) {
+        snapshot.forEach(child => {
+          orderList.push({
+            ...child.val(),
+          });
+          return false;
+        });
+      }
+    });
+    return orderList;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const useUserOrderListQuery = (
-  userId?: string,
-): UseQueryResult<IUserOrderListResponse, Error> =>
+  userId: string,
+): UseQueryResult<Array<IUserOrderListItem>, Error> =>
   useQuery(["userOrderList", userId], () => userOrderListApi(userId));
 
 export default useUserOrderListQuery;

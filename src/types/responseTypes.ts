@@ -49,8 +49,3 @@ export interface IUserOrderListItem {
   orderDate: string;
   storeId: string;
 }
-
-export interface IUserOrderListResponse {
-  getData: boolean;
-  userOrderList: Array<IUserOrderListItem>;
-}

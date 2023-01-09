@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 import { UseQueryResult } from "react-query/types/react/types";
-import request from "utils/request";
+import { getDataFromDB } from "utils/getDataFromDB";
 
 interface ILike {
   isLike: boolean;
 }
 
 export const getLikeStateApi = async (userId?: string, storeId?: string) => {
-  const res = await request.get(`/likes/${userId}/${storeId}`);
-  return res.json();
+  const data = await getDataFromDB(`/users/${userId}/likes/${storeId}`);
+  return !!data;
 };
 
 const useStoreLikeQuery = (

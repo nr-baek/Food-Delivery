@@ -18,8 +18,7 @@ function LikesStoreList() {
   } = useStoreListOfLikeQuery(id);
 
   useEffect(() => {
-    const isLogin = localStorage.getItem("deliveryApp");
-    if (!isLogin) {
+    if (!id) {
       alert("로그인이 필요한 페이지입니다.");
       navigate("/login");
     }

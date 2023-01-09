@@ -35,7 +35,7 @@ function UserInfo() {
           </li>
           <li>
             <span className="label">🍕 총 주문횟수</span>:
-            <span className="data">{data?.userOrderList.length} 회</span>
+            <span className="data">{data?.length} 회</span>
           </li>
         </ul>
       </section>
