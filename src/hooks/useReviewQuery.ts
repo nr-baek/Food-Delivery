@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query";
-import { IReviewResponse } from "types/responseTypes";
+import { IReview } from "types/responseTypes";
 import { getDataFromDB } from "utils/getDataFromDB";
 
 export const getReviewApi = async (storeId?: string) => {
@@ -9,7 +9,7 @@ export const getReviewApi = async (storeId?: string) => {
 
 const useReviewQuery = (
   storeId?: string,
-): UseQueryResult<IReviewResponse, Error> =>
+): UseQueryResult<Array<IReview>, Error> =>
   useQuery(["reviews", storeId], () => getReviewApi(storeId), {
     staleTime: 5000,
   });

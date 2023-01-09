@@ -33,15 +33,24 @@ function ReviewList() {
       <ReviewInfoBox>
         <span>
           <span>
-            <i className="fas fa-star"></i> {isLoading ? "-" : data?.average}
+            <i className="fas fa-star"></i>{" "}
+            {isLoading || !data
+              ? "-"
+              : data.length
+              ? (
+                  data?.reduce((curr, reviewInfo) => {
+                    return curr + reviewInfo.star;
+                  }, 0) / data.length
+                ).toFixed(1)
+              : 0}
           </span>
           <span>|</span>
-          <span>리뷰 {isLoading ? "-" : data?.reviewList.length}개</span>
+          <span>리뷰 {isLoading ? "-" : data?.length}개</span>
         </span>
         <button onClick={onClickButton}>리뷰쓰기</button>
       </ReviewInfoBox>
       {isLoading && <Loading>loading...</Loading>}
-      {data?.reviewList?.map(review => (
+      {data?.map(review => (
         <ReviewItem key={review.userId} reviewInfo={review} />
       ))}
     </>
