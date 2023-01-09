@@ -6,6 +6,7 @@ export interface IUserStore {
   actions: {
     setId: (id: string) => void;
     setNickname: (nickname: string) => void;
+    setInit: () => void;
   };
 }
 

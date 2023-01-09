@@ -46,10 +46,13 @@ export const AuthTemplateBox = styled.div`
     font-family: "hanna";
     text-align: center;
     width: 320px;
-    margin: 0 auto;
+    margin: 10px auto;
     font-size: 20px;
     a {
       color: #d15c03;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   .prev-btn {

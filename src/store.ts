@@ -12,6 +12,7 @@ const useUserStore = create<IUserStore>()(
     actions: {
       setId: (id: string) => set(() => ({ id })),
       setNickname: (nickname: string) => set(() => ({ nickname })),
+      setInit: () => set(() => ({ id: "", nickname: "" })),
     },
   })),
 );

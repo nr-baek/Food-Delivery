@@ -2,8 +2,10 @@ import React from "react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserInfoContainer } from "./styles";
-import { useUserId, useUserNickname } from "store";
+import { useUserActions, useUserId, useUserNickname } from "store";
 import useUserOrderListQuery from "hooks/useUserOrderListQuery";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function UserInfo() {
   const navigate = useNavigate();
@@ -12,22 +14,21 @@ function UserInfo() {
   const userNickname = useUserNickname();
   const { data } = useUserOrderListQuery(userId);
 
+  const { setInit } = useUserActions();
+
   const logOut = useCallback(() => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      delete localStorage.deliveryApp;
+      setInit();
+      signOut(auth);
       navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate, setInit]);
 
   return (
     <UserInfoContainer>
       <section>
         <h2 className="a11y-hidden">회원 정보</h2>
         <ul>
-          <li>
-            <span className="label">🍕 아 이 디</span>:
-            <span className="data">{userId}</span>
-          </li>
           <li>
             <span className="label">🍕 닉 네 임</span>:
             <span className="data">{userNickname}</span>

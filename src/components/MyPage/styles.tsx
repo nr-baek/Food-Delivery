@@ -27,23 +27,37 @@ export const UserInfoContainer = styled.div`
     }
   }
 
+  button {
+    border: 2px solid #333;
+    border-radius: 5px;
+    color: #333;
+    font-family: "hanna";
+
+    &:hover {
+      background-color: #f86b00;
+      color: #fff;
+    }
+  }
+
   .logOutBtn {
     width: 100%;
     text-align: right;
     button {
-      border: 2px solid #333;
       padding: 5px;
-      border-radius: 5px;
+      margin-top: 30px;
       margin-right: 30px;
       display: inline-block;
-      color: #333;
       font-size: 16px;
-      font-family: "hanna";
-      &:hover {
-        background-color: #f86b00;
-        color: #fff;
-      }
+      width: 100px;
     }
+  }
+
+  .loginBtn {
+    display: block;
+    margin: 40px auto;
+    padding: 10px;
+    width: 200px;
+    font-size: 23px;
   }
 `;
 
