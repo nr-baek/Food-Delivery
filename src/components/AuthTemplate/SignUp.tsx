@@ -4,22 +4,24 @@ import PrevButton from "../common/PrevButton";
 import { AuthButton, Error, Success } from "./styles";
 import { useCallback } from "react";
 import { ChangeEvent } from "react";
-import request from "utils/request";
 import { useNavigate } from "react-router-dom";
 
-const idReg = /^[a-zA-Z0-9]{4,11}$/;
-const pwReg = /^[a-zA-Z0-9]{5,15}$/;
+import "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
+import { getDatabase, ref, set } from "firebase/database";
+
+const pwReg = /^[a-zA-Z0-9]{6,15}$/;
 const nicReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
 function SignUp() {
   const navigate = useNavigate();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
 
-  const [idCheckError, setIdCheckError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [mismatchError, setMismatchError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
@@ -29,24 +31,18 @@ function SignUp() {
   const [signupLoading, setSignupLoading] = useState(false);
 
   const setInit = useCallback(() => {
-    setId("");
+    setEmail("");
     setPassword("");
     setPasswordCheck("");
     setNickname("");
   }, []);
 
-  const onChangeId = useCallback((e: ChangeEvent) => {
+  const onChangeEmail = useCallback((e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
 
     setSignUpError("");
     setSignUpSuccess(false);
-    setId(target.value);
-
-    if (!idReg.test(target.value)) {
-      setIdCheckError("아이디는 4~11자의 영문 소문자, 숫자만 가능합니다.");
-    } else {
-      setIdCheckError("");
-    }
+    setEmail(target.value);
   }, []);
 
   const onChangePassword = useCallback(
@@ -54,7 +50,7 @@ function SignUp() {
       const target = e.target as HTMLInputElement;
       setPassword(target.value);
       if (!pwReg.test(target.value)) {
-        setPwCheckError("비밀번호는 5~15자의 영문, 숫자를 사용하세요.");
+        setPwCheckError("비밀번호는 6~15자의 영문, 숫자를 사용하세요.");
       } else {
         setPwCheckError("");
       }
@@ -91,38 +87,49 @@ function SignUp() {
     }
   }, []);
 
-  const onClickSubmit = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      setSignupLoading(true);
+  const onClickSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
       e.preventDefault();
 
+      setSignupLoading(true);
       setSignUpError("");
       setSignUpSuccess(false);
 
-      const newUser = {
-        id,
+      let createdUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
         password,
-        nickname,
-      };
+      );
 
-      try {
-        const response = await request.post("/signup", newUser);
-        if (response.ok) {
-          setInit();
-          setSignUpSuccess(true);
-        } else if (response.status === 409) {
-          setSignUpError("중복된 아이디입니다.");
-        } else {
-          throw new (Error as any)("error!");
-        }
-        setSignupLoading(false);
-      } catch (error) {
-        setSignUpError(error.message);
-        setSignupLoading(false);
+      console.log("createdUser", createdUser);
+
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: nickname,
+        });
       }
-    },
-    [id, password, nickname, setInit],
-  );
+
+      await set(ref(getDatabase(), `users/${createdUser.user.uid}`), {
+        nickname,
+        likes: [],
+        orderList: [],
+      });
+      setInit();
+
+      setSignupLoading(false);
+      setSignUpSuccess(true);
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        setSignUpError("이미 가입된 이메일입니다.");
+      } else {
+        setSignUpError(error.code);
+      }
+      setSignupLoading(false);
+      setTimeout(() => {
+        setSignUpError("");
+      }, 5000);
+    }
+  };
 
   useEffect(() => {
     const isLogin = localStorage.getItem("deliveryApp");
@@ -139,18 +146,18 @@ function SignUp() {
           <legend>회원가입 폼</legend>
           <div className="input-box">
             <input
-              type="text"
+              type="email"
               autoComplete="off"
-              placeholder="아이디"
-              maxLength={12}
-              onChange={onChangeId}
-              value={id}
+              placeholder="이메일"
+              onChange={onChangeEmail}
+              value={email}
             />
           </div>
           <div className="input-box">
             <input
               type="password"
               placeholder="비밀번호"
+              minLength={6}
               onChange={onChangePassword}
               value={password}
             />
@@ -173,17 +180,9 @@ function SignUp() {
               onChange={onChangeNickname}
             />
           </div>
-          {(idCheckError ||
-            pwCheckError ||
-            nicknameError ||
-            mismatchError ||
-            signUpError) && (
+          {(pwCheckError || nicknameError || mismatchError || signUpError) && (
             <Error>
-              {idCheckError ||
-                pwCheckError ||
-                nicknameError ||
-                mismatchError ||
-                signUpError}
+              {pwCheckError || nicknameError || mismatchError || signUpError}
             </Error>
           )}
           {signUpSuccess && (
@@ -192,16 +191,11 @@ function SignUp() {
           <AuthButton
             type="submit"
             disabled={
-              id &&
+              email &&
               password &&
               passwordCheck &&
               nickname &&
-              !(
-                idCheckError ||
-                pwCheckError ||
-                nicknameError ||
-                mismatchError
-              ) &&
+              !(pwCheckError || nicknameError || mismatchError) &&
               !signupLoading
                 ? false
                 : true
