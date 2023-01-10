@@ -43,9 +43,16 @@ export interface IOrderResponse {
   orderDate: string;
 }
 
-export interface IUserOrderListItem {
+export interface IUserOrderListItemRes {
   storeName: string;
   totalAmount: number;
   orderDate: string;
+  storeId: string;
+}
+
+export interface IUserOrderListItemReq {
+  storeName: string;
+  totalAmount: number;
+  orderDate: object;
   storeId: string;
 }

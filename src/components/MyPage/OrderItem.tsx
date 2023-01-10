@@ -1,10 +1,11 @@
 import React from "react";
 import { ItemList } from "./styles";
 import { Link } from "react-router-dom";
-import { IUserOrderListItem } from "types/responseTypes";
+import { IUserOrderListItemRes } from "types/responseTypes";
+import getCurrentDate from "utils/getCurrentDate";
 
 interface Props {
-  orderInfo: IUserOrderListItem;
+  orderInfo: IUserOrderListItemRes;
 }
 
 function OrderItem({ orderInfo }: Props) {
@@ -15,7 +16,9 @@ function OrderItem({ orderInfo }: Props) {
         <Link to={`/store/detail/${orderInfo.storeId}`}>가게보기</Link>
       </div>
       <div className="orderInfo">
-        <span className="orderDate">결제일시: {orderInfo.orderDate}</span>
+        <span className="orderDate">
+          결제일시: {getCurrentDate(orderInfo.orderDate)}
+        </span>
         <span className="amount">
           결제금액: {orderInfo.totalAmount.toLocaleString()}원
         </span>

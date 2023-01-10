@@ -10,6 +10,7 @@ import {
   useTotalAmount,
   useUserId,
 } from "store";
+import { serverTimestamp } from "@firebase/database";
 
 interface Props {
   isLoading: boolean;
@@ -30,10 +31,12 @@ function OrderButton({ isLoading, order }: Props) {
   const onClick = () => {
     const orderInfo: IOrderInfo = {
       userId,
-      storeId,
-      storeName,
-      orderList,
-      totalAmount,
+      orderDetail: {
+        storeId,
+        storeName,
+        totalAmount,
+        orderDate: serverTimestamp(),
+      },
     };
 
     if (totalAmount >= minPrice) {

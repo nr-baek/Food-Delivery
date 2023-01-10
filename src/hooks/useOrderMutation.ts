@@ -1,30 +1,41 @@
+import { child, push, ref, set } from "@firebase/database";
+import { db } from "../firebase";
 import { UseMutationResult, useMutation } from "react-query";
-import { IOrderItem, IOrderResponse } from "types/responseTypes";
-import request from "utils/request";
+import {
+  IUserOrderListItemReq,
+  IUserOrderListItemRes,
+} from "types/responseTypes";
+import { getDataFromDB } from "utils/getDataFromDB";
 
 export interface IOrderInfo {
   userId?: string;
-  storeName?: string;
-  storeId?: string;
-  orderList?: (IOrderItem | null)[];
-  totalAmount: number;
+  orderDetail: IUserOrderListItemReq;
 }
 
-export const setOrderApi = async (
+const addOrderedInfoApi = async (
   orderInfo: IOrderInfo,
-): Promise<IOrderResponse> => {
-  const res = await request.post(`/order`, {
-    orderInfo,
-  });
-  return res.json();
+): Promise<IUserOrderListItemRes | undefined> => {
+  const key = push(child(ref(db), `users/${orderInfo.userId}/orderList`)).key;
+  await set(
+    ref(db, `users/${orderInfo.userId}/orderList/` + key),
+    orderInfo.orderDetail,
+  );
+
+  const orderedInfo = await getDataFromDB(
+    `users/${orderInfo.userId}/orderList/${key}`,
+  );
+
+  if (orderedInfo) {
+    return orderedInfo;
+  }
 };
 
 export default function useOrderMutation(): UseMutationResult<
-  IOrderResponse,
+  IUserOrderListItemRes | undefined,
   Error,
   IOrderInfo
 > {
-  return useMutation(setOrderApi, {
+  return useMutation(addOrderedInfoApi, {
     onError(err) {
       console.log(err);
     },

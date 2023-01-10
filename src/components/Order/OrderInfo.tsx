@@ -13,6 +13,7 @@ import {
 import OrderButton from "./OrderButton";
 import useOrderMutation, { IOrderInfo } from "hooks/useOrderMutation";
 import { useNavigate } from "react-router-dom";
+import getCurrentDate from "utils/getCurrentDate";
 
 function OrderInfo() {
   const orderList = useOrderList();
@@ -25,8 +26,9 @@ function OrderInfo() {
   const order = useCallback(
     async (orderInfo: IOrderInfo) => {
       const res = await mutateAsync(orderInfo);
-      if (res.order) {
-        setOrderDate(res.orderDate);
+      if (res?.orderDate) {
+        const date = getCurrentDate(res.orderDate);
+        setOrderDate(date);
       }
     },
     [mutateAsync, setOrderDate],

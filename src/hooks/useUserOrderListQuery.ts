@@ -2,10 +2,10 @@ import { get, orderByChild, query, ref } from "@firebase/database";
 import { db } from "../firebase";
 import { useQuery } from "react-query";
 import { UseQueryResult } from "react-query/types/react/types";
-import { IUserOrderListItem } from "types/responseTypes";
+import { IUserOrderListItemRes } from "types/responseTypes";
 
 export const userOrderListApi = async (userId: string) => {
-  let orderList: Array<IUserOrderListItem> = [];
+  let orderList: Array<IUserOrderListItemRes> = [];
   try {
     await get(
       query(ref(db, `users/${userId}/orderList`), orderByChild("orderDate")),
@@ -19,7 +19,7 @@ export const userOrderListApi = async (userId: string) => {
         });
       }
     });
-    return orderList;
+    return orderList.reverse();
   } catch (error) {
     console.error(error);
   }
@@ -27,7 +27,7 @@ export const userOrderListApi = async (userId: string) => {
 
 const useUserOrderListQuery = (
   userId: string,
-): UseQueryResult<Array<IUserOrderListItem>, Error> =>
+): UseQueryResult<Array<IUserOrderListItemRes>, Error> =>
   useQuery(["userOrderList", userId], () => userOrderListApi(userId));
 
 export default useUserOrderListQuery;
