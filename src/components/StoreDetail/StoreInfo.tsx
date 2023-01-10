@@ -1,6 +1,6 @@
 import React from "react";
 import useLoginCheck from "hooks/useLoginCheck";
-import useSetLikeMutation from "hooks/useSetLikeMutation";
+import useSetLikeMutation, { ILikeSettingInfo } from "hooks/useSetLikeMutation";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
 import useStoreLikeQuery from "hooks/useStoreLikeQuery";
 import { useParams } from "react-router-dom";
@@ -12,16 +12,21 @@ function StoreInfo() {
   const userId = useUserId();
   const { storeId } = useParams();
   const { data: storeInfo } = useStoreDetailQuery(storeId);
-  const { isLoading, isError, data: like } = useStoreLikeQuery(userId, storeId);
+  const {
+    isLoading,
+    isError,
+    data: likesData,
+  } = useStoreLikeQuery(userId, storeId);
 
-  const { storeName, storeStar, reviewCount } = storeInfo as StoreDetailInfo;
+  const { storeName, storeStar, reviewCount, id } =
+    storeInfo as StoreDetailInfo;
 
   const { setStoreName, setOrderDate } = useOrderListAction();
 
-  const likeSettingInfo = {
+  const likeSettingInfo: ILikeSettingInfo = {
     userId: userId,
-    storeId: storeId,
-    like: !like?.isLike,
+    currentLikesState: Boolean(likesData?.currentLikesState),
+    storeId: id,
   };
   const { mutate } = useSetLikeMutation();
 
@@ -44,7 +49,7 @@ function StoreInfo() {
           <i className="fas fa-phone-alt"></i>전화
         </button>
         <button onClick={onClickLikeButton}>
-          {!(isLoading || isError) && like?.isLike ? (
+          {!(isLoading || isError) && likesData?.currentLikesState ? (
             <i className="fas fa-heart dib" />
           ) : (
             <i className="far fa-heart dib" />

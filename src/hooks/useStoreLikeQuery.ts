@@ -3,24 +3,18 @@ import { UseQueryResult } from "react-query/types/react/types";
 import { getDataFromDB } from "utils/getDataFromDB";
 
 interface ILike {
-  isLike: boolean;
+  currentLikesState: boolean;
 }
 
 export const getLikeStateApi = async (userId?: string, storeId?: string) => {
   const data = await getDataFromDB(`/users/${userId}/likes/${storeId}`);
-  return !!data;
+  return { currentLikesState: Boolean(data) };
 };
 
 const useStoreLikeQuery = (
   userId?: string,
   storeId?: string,
 ): UseQueryResult<ILike, Error> =>
-  useQuery(
-    ["isLike", userId, storeId],
-    () => getLikeStateApi(userId, storeId),
-    {
-      staleTime: 5000,
-    },
-  );
+  useQuery(["isLike", userId, storeId], () => getLikeStateApi(userId, storeId));
 
 export default useStoreLikeQuery;

@@ -1,24 +1,33 @@
+import { ref, set } from "@firebase/database";
+import { db } from "../firebase";
 import { useMutation, UseMutationResult, useQueryClient } from "react-query";
-import request from "utils/request";
-
-interface ILikeSettingInfo {
-  userId?: string;
-  storeId?: string;
-  like?: boolean;
-}
 
 interface ILike {
-  isLike: boolean;
+  currentLikesState: boolean;
 }
 
-export const setLikeApi = async (likeSettingInfo: ILikeSettingInfo) => {
-  const res = await request.post(
-    `/likes/${likeSettingInfo.userId}/${likeSettingInfo.storeId}`,
-    {
-      like: likeSettingInfo.like,
-    },
-  );
-  return res.json();
+export interface ILikeSettingInfo {
+  userId: string;
+  currentLikesState: boolean;
+  storeId: number;
+}
+
+const addLikes = async (userId: string, storeId: number) => {
+  await set(ref(db, `users/${userId}/likes/${storeId}`), true);
+};
+
+const deleteLikes = async (userId: string, storeId: number) => {
+  await set(ref(db, `users/${userId}/likes/${storeId}`), null);
+};
+
+export const setLikesApi = async (likeSettingInfo: ILikeSettingInfo) => {
+  if (likeSettingInfo.currentLikesState) {
+    await deleteLikes(likeSettingInfo.userId, likeSettingInfo.storeId);
+    return { currentLikesState: false };
+  } else {
+    await addLikes(likeSettingInfo.userId, likeSettingInfo.storeId);
+    return { currentLikesState: true };
+  }
 };
 
 export default function useSetLikeMutation(): UseMutationResult<
@@ -30,7 +39,7 @@ export default function useSetLikeMutation(): UseMutationResult<
   }
 > {
   const queryClient = useQueryClient();
-  return useMutation(setLikeApi, {
+  return useMutation(setLikesApi, {
     onMutate: async (likeSettingInfo: ILikeSettingInfo) => {
       await queryClient.cancelQueries([
         "isLike",
@@ -44,14 +53,12 @@ export default function useSetLikeMutation(): UseMutationResult<
         likeSettingInfo.storeId,
       ]);
 
-      if (previousLike) {
-        queryClient.setQueryData<ILike>(
-          ["isLike", likeSettingInfo.userId, likeSettingInfo.storeId],
-          old => ({
-            isLike: Boolean(likeSettingInfo.like),
-          }),
-        );
-      }
+      queryClient.setQueryData<ILike>(
+        ["isLike", likeSettingInfo.userId, likeSettingInfo.storeId],
+        old => ({
+          currentLikesState: !Boolean(likeSettingInfo.currentLikesState),
+        }),
+      );
       return { previousLike };
     },
     onError: (err, likeSettingInfo, context) => {
