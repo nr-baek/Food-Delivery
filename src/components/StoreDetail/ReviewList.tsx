@@ -15,7 +15,7 @@ function ReviewList() {
 
   const onClickButton = useLoginCheck(userId, async () => {
     try {
-      const { isOrdered } = await checkReviewable(userId, storeId as string);
+      const isOrdered = await checkReviewable(userId, storeId as string);
 
       if (isOrdered) {
         navigate(`/review/${storeId}`);

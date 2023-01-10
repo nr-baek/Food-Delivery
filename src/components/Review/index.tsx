@@ -20,7 +20,7 @@ function Index() {
 
   const checkAccessibility = useCallback(async () => {
     try {
-      const { isOrdered } = await checkReviewable(userId, storeId as string);
+      const isOrdered = await checkReviewable(userId, storeId as string);
       if (!isOrdered) {
         alert("해당 가게의 주문 기록이 없습니다.");
         navigate("/");
@@ -71,8 +71,7 @@ function Index() {
   );
 
   useEffect(() => {
-    const isLogin = localStorage.getItem("deliveryApp");
-    if (!isLogin) {
+    if (!userId) {
       alert("로그인이 필요한 페이지입니다.");
       navigate("/login");
     } else {
