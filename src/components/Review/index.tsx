@@ -4,7 +4,8 @@ import PrevButton from "../common/PrevButton";
 import { ReviewWrapper } from "./styles";
 import checkReviewable from "utils/checkReviewable";
 import { useOrderListAction, useUserId, useUserNickname } from "store";
-import useReviewMutation from "hooks/useReviewMutation";
+import useReviewMutation, { IReviewInfo } from "hooks/useReviewMutation";
+import { serverTimestamp } from "@firebase/database";
 
 function Index() {
   const navigate = useNavigate();
@@ -41,34 +42,23 @@ function Index() {
     setContent(e.target.value);
   }, []);
 
-  const onClick = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      const reviewInfo = {
-        storeId: storeId as string,
-        userId,
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const reviewInfo: IReviewInfo = {
+      storeId: storeId as string,
+      review: {
         nickname,
-        star,
+        star: +star,
         content,
-      };
+        date: serverTimestamp(),
+      },
+    };
 
-      const res = await mutateAsync(reviewInfo);
-      if (res.write) {
-        alert("리뷰 등록이 완료되었습니다.");
-        resetOrderList();
-        navigate(`/store/detail/${storeId}`);
-      }
-    },
-    [
-      userId,
-      nickname,
-      star,
-      content,
-      storeId,
-      mutateAsync,
-      navigate,
-      resetOrderList,
-    ],
-  );
+    await mutateAsync(reviewInfo);
+
+    alert("리뷰 등록이 완료되었습니다.");
+    resetOrderList();
+    navigate(`/store/detail/${storeId}`);
+  };
 
   useEffect(() => {
     if (!userId) {

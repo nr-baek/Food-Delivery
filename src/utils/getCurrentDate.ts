@@ -1,4 +1,4 @@
-export default function getCurrentDate(date: string): string {
+export default function getCurrentDate(date: number): string {
   const currentDate = new Date(date);
   const DateString = `${currentDate.getFullYear()}년 ${
     currentDate.getMonth() + 1

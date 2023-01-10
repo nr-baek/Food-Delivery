@@ -50,8 +50,8 @@ function ReviewList() {
         <button onClick={onClickButton}>리뷰쓰기</button>
       </ReviewInfoBox>
       {isLoading && <Loading>loading...</Loading>}
-      {data?.map(review => (
-        <ReviewItem key={review.userId} reviewInfo={review} />
+      {data?.map((review, idx) => (
+        <ReviewItem key={idx} reviewInfo={review} />
       ))}
     </>
   );

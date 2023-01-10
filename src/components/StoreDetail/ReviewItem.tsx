@@ -1,8 +1,10 @@
 import React from "react";
 import { IReview } from "types/responseTypes";
 import { ReviewItemBox } from "./styles";
+import getCurrentDate from "utils/getCurrentDate";
 
 interface Props {
+  key: number;
   reviewInfo: IReview;
 }
 
@@ -16,7 +18,7 @@ function ReviewItem({ reviewInfo }: Props) {
         <span>
           <i className="fas fa-star"></i> {star}
         </span>
-        {date}
+        {getCurrentDate(date)}
       </p>
       <p className="review-txt">{content}</p>
     </ReviewItemBox>

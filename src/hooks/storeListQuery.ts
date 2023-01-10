@@ -9,7 +9,14 @@ interface IlikesResponse {
 
 export const getStoreListOfCategoryApi = async (category?: string) => {
   const data = await getDataFromDB(`category/${category}`);
-  return data ? data : [];
+  const storeList: Array<StoreInfo> = [];
+
+  if (data) {
+    for (const key in data as IlikesResponse) {
+      storeList.push(data[key]);
+    }
+  }
+  return storeList;
 };
 
 export const getStoreListOfLikeApi = async (userId?: string) => {

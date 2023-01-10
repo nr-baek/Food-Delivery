@@ -1,10 +1,24 @@
+import { get, orderByChild, query, ref } from "@firebase/database";
+import { db } from "../firebase";
 import { useQuery, UseQueryResult } from "react-query";
 import { IReview } from "types/responseTypes";
-import { getDataFromDB } from "utils/getDataFromDB";
 
 export const getReviewApi = async (storeId?: string) => {
-  const data = await getDataFromDB(`reviews/${storeId}`);
-  return data ? data : [];
+  let reviewList: Array<IReview> = [];
+  await get(query(ref(db, `reviews/${storeId}`), orderByChild("date"))).then(
+    snapshot => {
+      if (snapshot.exists()) {
+        snapshot.forEach(child => {
+          reviewList.push({
+            ...child.val(),
+          });
+          return false;
+        });
+      }
+    },
+  );
+
+  return reviewList.reverse();
 };
 
 const useReviewQuery = (

@@ -77,7 +77,7 @@ export const ReviewWrapper = styled.div`
   .number-of-letters {
     width: 350px;
     font-size: 17px;
-    margin: 0 auto 10px auto;
+    margin: 10px auto;
     text-align: right;
   }
   .wrap-btn {

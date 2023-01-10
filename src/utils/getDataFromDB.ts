@@ -3,14 +3,14 @@ import { db } from "../firebase";
 
 export const getDataFromDB = async (path: string) => {
   try {
-    let storeList;
+    let data;
     await get(ref(db, path)).then(snapshot => {
       if (snapshot.exists()) {
-        storeList = snapshot.val();
+        data = snapshot.val();
       }
     });
 
-    return storeList;
+    return data;
   } catch (e) {
     console.log(e);
   }
