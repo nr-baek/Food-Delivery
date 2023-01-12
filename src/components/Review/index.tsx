@@ -57,7 +57,7 @@ function Index() {
 
     alert("리뷰 등록이 완료되었습니다.");
     resetOrderList();
-    navigate(`/store/detail/${storeId}`);
+    navigate(`/store/detail/${storeId}`, { replace: true });
   };
 
   useEffect(() => {
