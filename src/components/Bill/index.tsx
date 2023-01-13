@@ -46,7 +46,6 @@ function Index() {
           <p className="store-name">{storeName}</p>
           <p className="order-sum">{orderSum}</p>
           <p className="order-date">주문일시: {orderDate}</p>
-          {/* <p className="order-date">주문일시: 2022년 12월 17일 0:52</p> */}
         </div>
         <h2 className="orders">주문 내역</h2>
         <ul>

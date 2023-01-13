@@ -40,30 +40,27 @@ export default function Login() {
     }
   }, []);
 
-  const onClickSubmit = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      try {
-        setLoading(true);
-        await signInWithEmailAndPassword(auth, email, password);
-        navigate("/");
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        if (
-          error.code === "auth/user-not-found" ||
-          error.code === "auth/wrong-password"
-        ) {
-          setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
-        } else {
-          setLoginError(error.code);
-        }
-
-        setLoading(false);
+  const onClickSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password"
+      ) {
+        setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      } else {
+        setLoginError(error.code);
       }
-    },
-    [email, password, navigate],
-  );
+
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!loading && nickname) {

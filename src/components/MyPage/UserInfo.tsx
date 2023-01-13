@@ -1,5 +1,4 @@
 import React from "react";
-import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserInfoContainer } from "./styles";
 import { useUserActions, useUserId, useUserNickname } from "store";
@@ -16,13 +15,13 @@ function UserInfo() {
 
   const { setInit } = useUserActions();
 
-  const logOut = useCallback(() => {
+  const logOut = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       setInit();
       signOut(auth);
       navigate("/login");
     }
-  }, [navigate, setInit]);
+  };
 
   return (
     <UserInfoContainer>

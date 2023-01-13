@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useOrderListAction } from "store";
 import { DelButton } from "../Order/styles";
 import PrevButton from "./PrevButton";
@@ -14,9 +14,9 @@ interface Props {
 function Header({ children, prevBtn, delBtn, scrollUp }: Props) {
   const { resetOrderList } = useOrderListAction();
 
-  const onClick = useCallback(() => {
+  const onClick = () => {
     resetOrderList();
-  }, [resetOrderList]);
+  };
 
   return (
     <StyledHeader delBtn={delBtn}>

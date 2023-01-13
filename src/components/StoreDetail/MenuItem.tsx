@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useOrderListAction } from "store";
 import { IMenuItem } from "types/responseTypes";
 
@@ -12,16 +12,13 @@ interface Props {
 function MenuItem({ menuInfo, idx, checked }: Props) {
   const { addMenu, deleteMenu } = useOrderListAction();
 
-  const onClick = useCallback(
-    (e: React.MouseEvent<HTMLInputElement>) => {
-      if (checked) {
-        deleteMenu(idx);
-      } else {
-        addMenu(idx, { ...menuInfo, orderCount: 1 });
-      }
-    },
-    [addMenu, deleteMenu, checked, idx, menuInfo],
-  );
+  const onClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    if (checked) {
+      deleteMenu(idx);
+    } else {
+      addMenu(idx, { ...menuInfo, orderCount: 1 });
+    }
+  };
 
   return (
     <label htmlFor={menuInfo.foodName} id={idx + ""}>

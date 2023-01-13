@@ -2,7 +2,7 @@ import React from "react";
 import { MenuWrapper } from "./styles";
 import { Link, useLocation } from "react-router-dom";
 
-export default function BottomMenu() {
+function BottomMenu() {
   const { pathname } = useLocation();
 
   const isHome =
@@ -49,3 +49,5 @@ export default function BottomMenu() {
     </MenuWrapper>
   );
 }
+
+export default React.memo(BottomMenu);

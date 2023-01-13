@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function PrevButton() {
   const navigate = useNavigate();
 
-  const handleGoBack = useCallback(() => {
+  const handleGoBack = () => {
     navigate(-1);
-  }, [navigate]);
+  };
 
   return (
     <button className="prevBtn" onClick={handleGoBack}>
