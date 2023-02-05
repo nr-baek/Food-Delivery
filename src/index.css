@@ -1,6 +1,7 @@
 /* 도현체 */
 @font-face {
   font-family: "dohyeon";
+  font-display: swap;
   src: url(./assets/font/BMDOHYEON_ttf.woff2) format("woff2"),
     url(./assets/font/BMDoHyeon.woff) format("woff");
 }
@@ -8,6 +9,7 @@
 /* 한나는열한살체 */
 @font-face {
   font-family: "hanna";
+  font-display: swap;
   src: url(./assets/font/BMHANNA_11yrs_ttf.woff2) format("woff2"),
     url(./assets/font/BMHANNA11yrsold.woff) format("woff");
 }
@@ -15,6 +17,7 @@
 /* 한나Air체 */
 @font-face {
   font-family: "hannaAir";
+  font-display: swap;
   src: url(./assets/font/BMHANNAAir_ttf.woff2) format("woff2"),
     url(./assets/font/BMHANNAAir.woff) format("woff");
 }
@@ -22,6 +25,7 @@
 /* 한나프로체 */
 @font-face {
   font-family: "hannaPro";
+  font-display: swap;
   src: url(./assets/font/BMHANNAPro.woff2) format("woff2"),
     url(./assets/font/BMHANNAPro.woff) format("woff");
 }
@@ -29,6 +33,7 @@
 /* 주아체 */
 @font-face {
   font-family: "jua";
+  font-display: swap;
   src: url(./assets/font/BMJUA_ttf.woff2) format("woff2"),
     url(./assets/font/BMJUA.woff) format("woff");
 }
@@ -36,6 +41,7 @@
 /* 연성체 */
 @font-face {
   font-family: "yeonsung";
+  font-display: swap;
   src: url(./assets/font/BMYEONSUNG_ttf.woff2) format("woff2"),
     url(./assets/font/BMYEONSUNG.woff) format("woff");
 }
