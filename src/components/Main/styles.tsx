@@ -23,7 +23,7 @@ export const StyledSection = styled.section`
         img {
           display: inline-block;
           width: 450px;
-          height: 100%;
+          height: 210px;
         }
 
         &:not(:last-child) {
