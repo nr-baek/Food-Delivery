@@ -1,19 +1,21 @@
+import { useEffect, Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Template from "./components/common/Template";
-import Main from "./components/Main";
-import StoreListComp from "./components/StoreListComp";
-import MyPage from "./components/MyPage";
-import StoreDetail from "./components/StoreDetail";
-import Order from "./components/Order";
-import Bill from "./components/Bill";
-import Review from "./components/Review";
 import { Container } from "./components/common/styles";
-import Login from "./components/AuthTemplate/Login";
-import SignUp from "./components/AuthTemplate/SignUp";
+
 import { useUserActions } from "store";
-import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+
+const Template = lazy(() => import("./components/common/Template"));
+const Main = lazy(() => import("./components/Main"));
+const StoreListComp = lazy(() => import("./components/StoreListComp"));
+const MyPage = lazy(() => import("./components/MyPage"));
+const StoreDetail = lazy(() => import("./components/StoreDetail"));
+const Order = lazy(() => import("./components/Order"));
+const Bill = lazy(() => import("./components/Bill"));
+const Review = lazy(() => import("./components/Review"));
+const Login = lazy(() => import("./components/AuthTemplate/Login"));
+const SignUp = lazy(() => import("./components/AuthTemplate/SignUp"));
 
 function App() {
   const { setId, setNickname } = useUserActions();
@@ -33,20 +35,22 @@ function App() {
 
   return (
     <Container>
-      <Routes>
-        <Route element={<Template />}>
-          <Route path="/" element={<Main />} />
-          <Route path="/likes" element={<StoreListComp />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/store/:category" element={<StoreListComp />} />
-          <Route path="/bill" element={<Bill />} />
-        </Route>
-        <Route path="/store/detail/:storeId" element={<StoreDetail />} />
-        <Route path="/order/:storeId" element={<Order />} />
-        <Route path="/review/:storeId" element={<Review />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+      <Suspense>
+        <Routes>
+          <Route element={<Template />}>
+            <Route path="/" element={<Main />} />
+            <Route path="/likes" element={<StoreListComp />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/store/:category" element={<StoreListComp />} />
+            <Route path="/bill" element={<Bill />} />
+          </Route>
+          <Route path="/store/detail/:storeId" element={<StoreDetail />} />
+          <Route path="/order/:storeId" element={<Order />} />
+          <Route path="/review/:storeId" element={<Review />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </Suspense>
     </Container>
   );
 }
