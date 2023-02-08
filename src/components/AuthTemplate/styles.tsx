@@ -42,7 +42,8 @@ export const AuthTemplateBox = styled.div`
       word-break: break-all;
     }
   }
-  .join {
+  .join,
+  .home {
     font-family: "hanna";
     text-align: center;
     width: 320px;

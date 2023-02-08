@@ -106,6 +106,9 @@ export default function Login() {
       <div className="join">
         혹시, 처음이신가요? <Link to="/signup">회원가입</Link>
       </div>
+      <div className="home">
+        로그인 없이 <Link to="/">홈으로 이동</Link>
+      </div>
     </AuthTemplate>
   );
 }
