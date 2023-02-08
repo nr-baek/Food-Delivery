@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyledContainer } from "./styles";
 import StoreItem from "./StoreItem";
-import { useNavigate } from "react-router-dom";
 import { useStoreListOfLikeQuery } from "hooks/storeListQuery";
 import { useUserId } from "store";
 import { Message } from "components/common/styles";
 
 function LikesStoreList() {
-  const navigate = useNavigate();
   const id = useUserId();
 
   const {
@@ -16,13 +14,6 @@ function LikesStoreList() {
     isError,
     error,
   } = useStoreListOfLikeQuery(id);
-
-  useEffect(() => {
-    if (!id) {
-      alert("로그인이 필요한 페이지입니다.");
-      navigate("/login");
-    }
-  }, []);
 
   if (isLoading || isError) {
     return (
