@@ -5,11 +5,11 @@
 
 <br>
 
-<img src="/preview-image.jpg" width="800" />
-
 ## 🏈 사이트 보러가기
 
 🧑‍💻 [사이트 방문하기](https://delivery-app-d94ea.web.app)
+
+<img src="/preview-image.jpg" width="800" />
 
 <br>
 
