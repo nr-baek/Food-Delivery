@@ -4,6 +4,7 @@ export const MenuWrapper = styled.div`
   position: sticky;
   bottom: 0;
   border-top: 2px solid #c5c5c5;
+  background-color: #fff;
   ul {
     display: flex;
     li {
@@ -100,7 +101,7 @@ export const Container = styled.div`
   box-shadow: 0 9px 15px -3px rgb(0 0 0 / 30%);
   border-radius: 10px;
   font-family: "hanna";
-  overflow: scroll;
+  overflow: hidden;
   display: flex;
   flex-flow: column nowrap;
   user-select: none;
@@ -109,6 +110,11 @@ export const Container = styled.div`
 interface IMessage {
   error?: boolean;
 }
+
+export const MainBox = styled.div`
+  height: 638px;
+  overflow-y: auto;
+`;
 
 export const Message = styled.p`
   font-size: 25px;

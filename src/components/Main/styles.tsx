@@ -67,7 +67,7 @@ export const CategoryList = styled.ul`
     width: 27%;
     /* flex-grow: 1; */
     text-align: center;
-    background-color: #fff8ef;
+    background-color: #ffe9cd;
     border-radius: 20px;
     margin: 5px;
     opacity: 0.9;
@@ -86,7 +86,7 @@ export const CategoryList = styled.ul`
     }
 
     &:hover {
-      background-color: #ffdeb2;
+      background-color: #ffab3c;
       opacity: 1;
       img {
         opacity: 1;

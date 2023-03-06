@@ -4,9 +4,10 @@ import StoreDetailMain from "./StoreDetailMain";
 import StorePrice from "./StorePrice";
 import { useParams } from "react-router-dom";
 import useStoreDetailQuery from "hooks/useStoreDetailQuery";
-import { Message } from "components/common/styles";
+import { MainBox, Message } from "components/common/styles";
 import { useOrderListAction } from "store";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import useThrottle from "hooks/useThrottle";
 
 function Index() {
   const { storeId } = useParams();
@@ -26,25 +27,18 @@ function Index() {
     setStoreId(storeId);
   }
 
-  useEffect(() => {
-    const scrollTarget = document.querySelector("#root > div");
+  const onScroll = useCallback(
+    useThrottle((e: React.UIEvent<HTMLElement>) => {
+      const target = e.target as HTMLDivElement;
 
-    let eventHandler = () => {
-      if (scrollTarget) {
-        if (scrollTarget.scrollTop > 100) {
-          setScrollUp(false);
-        } else if (scrollTarget.scrollTop <= 100) {
-          setScrollUp(true);
-        }
+      if (target.scrollTop > 100) {
+        setScrollUp(false);
+      } else if (target.scrollTop <= 100) {
+        setScrollUp(true);
       }
-    };
-
-    scrollTarget?.addEventListener("scroll", eventHandler);
-
-    return () => {
-      scrollTarget?.removeEventListener("scroll", eventHandler);
-    };
-  }, []);
+    }, 300),
+    [],
+  );
 
   return (
     <>
@@ -60,11 +54,11 @@ function Index() {
         </Message>
       ) : (
         storeInfo && (
-          <>
+          <MainBox onScroll={onScroll}>
             <StoreInfo />
             <StorePrice />
             <StoreDetailMain />
-          </>
+          </MainBox>
         )
       )}
     </>

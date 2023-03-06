@@ -4,6 +4,7 @@ import Header from "../common/Header";
 import OrderInfo from "./OrderInfo";
 import { GrayWrapper } from "./styles";
 import { useStoreId } from "../../store";
+import { MainBox } from "components/common/styles";
 
 function Index() {
   const navigate = useNavigate();
@@ -23,7 +24,9 @@ function Index() {
       <Header prevBtn={true} delBtn={true}>
         주문하기
       </Header>
-      <OrderInfo />
+      <MainBox>
+        <OrderInfo />
+      </MainBox>
     </GrayWrapper>
   );
 }

@@ -106,8 +106,6 @@ function SignUp() {
         password,
       );
 
-      console.log("createdUser", createdUser);
-
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: nickname,
