@@ -1,21 +1,22 @@
 export default function getCategory(storeId: string) {
-  if (storeId >= "0" && storeId <= "4") {
+  const id = +storeId;
+  if (id >= 0 && id <= 4) {
     return "fastFood";
-  } else if (storeId >= "5" && storeId <= "9") {
+  } else if (id >= 5 && id <= 9) {
     return "dessert";
-  } else if (storeId >= "10" && storeId <= "14") {
+  } else if (id >= 10 && id <= 14) {
     return "chicken";
-  } else if (storeId >= "15" && storeId <= "19") {
+  } else if (id >= 15 && id <= 19) {
     return "pizza";
-  } else if (storeId >= "20" && storeId <= "24") {
+  } else if (id >= 20 && id <= 24) {
     return "schoolFood";
-  } else if (storeId >= "25" && storeId <= "29") {
+  } else if (id >= 25 && id <= 29) {
     return "dish";
-  } else if (storeId >= "30" && storeId <= "34") {
+  } else if (id >= 30 && id <= 34) {
     return "koreanFood";
-  } else if (storeId >= "35" && storeId <= "39") {
+  } else if (id >= 35 && id <= 39) {
     return "chineseFood";
-  } else if (storeId >= "40" && storeId <= "44") {
+  } else if (id >= 40 && id <= 44) {
     return "japaneseFood";
   }
 }
