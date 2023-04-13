@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { AuthButton, Error } from "./styles";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
+const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const pwReg = /^[a-zA-Z0-9]{6,15}$/;
 
 export default function Login() {
@@ -19,12 +20,21 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  const onChangeId = useCallback((e: ChangeEvent) => {
+  const onChangeEmail = useCallback((e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
+
+    setLoginError("");
     setEmail(target.value);
+
+    if (!emailReg.test(target.value)) {
+      setEmailError("유효한 이메일을 입력하세요.");
+    } else {
+      setEmailError("");
+    }
   }, []);
 
   const onChangePw = useCallback((e: ChangeEvent) => {
@@ -48,7 +58,6 @@ export default function Login() {
       navigate("/");
       setLoading(false);
     } catch (error) {
-      console.log(error);
       if (
         error.code === "auth/user-not-found" ||
         error.code === "auth/wrong-password"
@@ -56,6 +65,7 @@ export default function Login() {
         setLoginError("아이디 혹은 비밀번호가 일치하지 않습니다.");
       } else {
         setLoginError(error.code);
+        console.log(error);
       }
 
       setLoading(false);
@@ -80,7 +90,7 @@ export default function Login() {
               autoComplete="off"
               placeholder="아이디"
               value={email}
-              onChange={onChangeId}
+              onChange={onChangeEmail}
             />
           </div>
           <div className="input-box">
@@ -94,13 +104,15 @@ export default function Login() {
           <AuthButton
             type="submit"
             disabled={
-              loading || !(email && password) || pwCheckError ? true : false
+              loading || !(email && password) || pwCheckError || emailError
+                ? true
+                : false
             }
             onClick={onClickSubmit}
           >
             로그인
           </AuthButton>
-          <Error>{pwCheckError || loginError}</Error>
+          <Error>{emailError || pwCheckError || loginError}</Error>
         </fieldset>
       </form>
       <div className="join">

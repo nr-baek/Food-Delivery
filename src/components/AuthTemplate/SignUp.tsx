@@ -14,6 +14,7 @@ import { auth } from "../../firebase";
 import { getDatabase, ref, set } from "firebase/database";
 import { useUserNickname } from "store";
 
+const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const pwReg = /^[a-zA-Z0-9]{6,15}$/;
 const nicReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
@@ -27,6 +28,7 @@ function SignUp() {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
 
+  const [emailError, setEmailError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [mismatchError, setMismatchError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
@@ -48,6 +50,12 @@ function SignUp() {
     setSignUpError("");
     setSignUpSuccess(false);
     setEmail(target.value);
+
+    if (!emailReg.test(target.value)) {
+      setEmailError("유효한 이메일을 입력하세요.");
+    } else {
+      setEmailError("");
+    }
   }, []);
 
   const onChangePassword = useCallback(
@@ -187,9 +195,17 @@ function SignUp() {
               onChange={onChangeNickname}
             />
           </div>
-          {(pwCheckError || nicknameError || mismatchError || signUpError) && (
+          {(emailError ||
+            pwCheckError ||
+            nicknameError ||
+            mismatchError ||
+            signUpError) && (
             <Error>
-              {pwCheckError || nicknameError || mismatchError || signUpError}
+              {emailError ||
+                pwCheckError ||
+                nicknameError ||
+                mismatchError ||
+                signUpError}
             </Error>
           )}
           {signUpSuccess && (
@@ -202,7 +218,7 @@ function SignUp() {
               password &&
               passwordCheck &&
               nickname &&
-              !(pwCheckError || nicknameError || mismatchError) &&
+              !(emailError || pwCheckError || nicknameError || mismatchError) &&
               !signupLoading
                 ? false
                 : true
